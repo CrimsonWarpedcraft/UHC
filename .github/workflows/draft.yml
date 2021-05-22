@@ -54,6 +54,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/build/libs/ExamplePlugin.jar
-          asset_name: ExamplePlugin.jar
+          asset_path: ${{ github.workspace }}/build/libs/Uhc.jar
+          asset_name: Uhc.jar
           asset_content_type: application/java-archive

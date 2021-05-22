@@ -7,7 +7,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
-group = "com.snowypeaksystems.exampleplugin"
+group = "com.crimsonwarpedcraft.uhc"
 
 if (hasProperty('ver')) {
     if (ver.charAt(0) == "v") {
