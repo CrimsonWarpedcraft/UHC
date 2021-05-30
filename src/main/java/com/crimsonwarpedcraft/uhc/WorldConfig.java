@@ -22,6 +22,7 @@ public class WorldConfig {
    * @return this instance that can be used for method chaining
    */
   public WorldConfig setDifficulty(Difficulty difficulty) {
+    world.setDifficulty(difficulty);
 
     return this;
   }
@@ -33,18 +34,20 @@ public class WorldConfig {
    * @return this instance that can be used for method chaining
    */
   public WorldConfig setBorderSize(double blocks) {
+    world.getWorldBorder().setSize(blocks);
 
     return this;
   }
 
   /**
-   * Set the size of the world border after a duration of seconds.
+   * Changes the size of the world border over a duration of seconds.
    *
-   * @param block the size of the border in blocks
+   * @param blocks the size of the border in blocks
    * @param secs the amount of time in seconds to shrink or grow the border for
    * @return this instance that can be used for method chaining
    */
-  public WorldConfig setBorderSize(double block, long secs) {
+  public WorldConfig setBorderSize(double blocks, long secs) {
+    world.getWorldBorder().setSize(blocks, secs);
 
     return this;
   }
