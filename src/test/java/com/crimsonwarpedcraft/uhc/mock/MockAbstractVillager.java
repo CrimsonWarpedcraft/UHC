@@ -36,6 +36,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.EntityEquipment;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
@@ -566,6 +567,11 @@ public class MockAbstractVillager implements AbstractVillager {
   @Override
   public boolean isHandRaised() {
     return false;
+  }
+
+  @Override
+  public @NotNull EquipmentSlot getHandRaised() {
+    return null;
   }
 
   @Override
