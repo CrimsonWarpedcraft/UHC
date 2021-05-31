@@ -22,6 +22,11 @@ public class Uhc extends JavaPlugin {
         // Register event listeners
         .registerListener(new VillagerGuardian());
 
+    WorldConfig
+        .getInstance(getServer().getWorld("world"))
+        .setBorderSize(1000)
+        .setBorderSize(500, 300);
+
     saveDefaultConfig();
   }
 }
