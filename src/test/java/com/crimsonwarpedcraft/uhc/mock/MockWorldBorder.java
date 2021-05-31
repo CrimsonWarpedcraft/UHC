@@ -1,5 +1,6 @@
 package com.crimsonwarpedcraft.uhc.mock;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -12,8 +13,9 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
+@SuppressFBWarnings("NP_NONNULL_RETURN_VIOLATION")
 public class MockWorldBorder implements WorldBorder {
-  private double size = 0;
+  private volatile double size = 0;
   private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 
   @Override
@@ -33,7 +35,7 @@ public class MockWorldBorder implements WorldBorder {
 
   @Override
   public void setSize(double newSize, long seconds) {
-    Runnable task = () -> size = seconds;
+    Runnable task = () -> size = newSize;
 
     executor.schedule(task, seconds, TimeUnit.SECONDS);
   }

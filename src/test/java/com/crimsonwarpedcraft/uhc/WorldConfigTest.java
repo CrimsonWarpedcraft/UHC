@@ -52,7 +52,7 @@ class WorldConfigTest {
 
     WorldConfig
         .getInstance(world)
-        .setBorderSize(200, 3);
+        .setBorderSize(200, 1);
 
     assertEquals(100, border.getSize());
 
