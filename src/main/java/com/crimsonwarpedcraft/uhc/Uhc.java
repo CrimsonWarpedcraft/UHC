@@ -1,5 +1,7 @@
 package com.crimsonwarpedcraft.uhc;
 
+import com.crimsonwarpedcraft.uhc.command.CommandRegister;
+import com.crimsonwarpedcraft.uhc.command.StartCommand;
 import com.crimsonwarpedcraft.uhc.listener.EndDisabler;
 import com.crimsonwarpedcraft.uhc.listener.ListenerRegister;
 import com.crimsonwarpedcraft.uhc.listener.RegenPreventer;
@@ -41,6 +43,14 @@ public class Uhc extends JavaPlugin {
           );
     }
 
+    CommandRegister
+        .newCommandRegister(this)
+        .register(
+            StartCommand.getStartCommand(
+                GameState.newGameState()
+            )
+        );
+
     // Used for registering event listeners with
     ListenerRegister
         .getListenerRegister(this)
@@ -52,6 +62,7 @@ public class Uhc extends JavaPlugin {
         .registerListener(EndDisabler.getEndDisabler())
         .registerListener(UhcUserStoreGarbageCollector.getUhcUserStoreGarbageCollector());
 
+    // TODO Move this border shrinking code to StartCommand
     WorldConfig
         .getWorldConfig(getServer().getWorlds().get(0))
         .setBorderSize(1000)

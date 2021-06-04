@@ -5,6 +5,10 @@ api-version: "1.16"
 author: Levi Muniz
 description: A simple UHC plugin
 
+commands:
+  uhc:
+    description: Base command for UHC
+
 permissions:
   uhc.admin:
     description: Gives players access to administrative commands
