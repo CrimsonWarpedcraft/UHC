@@ -21,11 +21,11 @@ public class Uhc extends JavaPlugin {
     ListenerRegister
         .getInstance(this)
         // Register event listeners
-        .registerListener(new VillagerGuardian())
+        .registerListener(VillagerGuardian.getVillagerGuardian())
         .registerListener(UhcUserStoreGarbageCollector.getUhcUserStoreGarbageCollector());
 
     WorldConfig
-        .getInstance(getServer().getWorld("world"))
+        .getWorldConfig(getServer().getWorld("world"))
         .setBorderSize(1000)
         .setBorderSize(500, 300);
 

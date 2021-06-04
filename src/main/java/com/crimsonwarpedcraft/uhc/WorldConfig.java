@@ -53,12 +53,12 @@ public class WorldConfig {
   }
 
   /**
-   * Get a WorldConfig instance to modify the properties of a world.
+   * Get a new WorldConfig instance to modify the properties of a world.
    *
    * @param world the world to modify the properties of
    * @return a WorldConfig instance
    */
-  public static WorldConfig getInstance(World world) {
+  public static WorldConfig getWorldConfig(World world) {
     return new WorldConfig(world);
   }
 }

@@ -12,6 +12,15 @@ import org.bukkit.event.entity.EntityDamageEvent;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class VillagerGuardian implements Listener {
+
+  /** Returns a new instance of a VillagerGuardian. */
+  public static VillagerGuardian getVillagerGuardian() {
+    return new VillagerGuardian();
+  }
+
+  private VillagerGuardian() {
+  }
+
   /** Prevent any AbstractVillagers (Villagers/WanderingVillagers) from taking damage. */
   @EventHandler
   public void onEntityDamage(EntityDamageEvent event) {

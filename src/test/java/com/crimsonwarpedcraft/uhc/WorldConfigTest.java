@@ -7,7 +7,6 @@ import com.crimsonwarpedcraft.uhc.mock.MockWorld;
 import com.crimsonwarpedcraft.uhc.mock.MockWorldBorder;
 import org.bukkit.Difficulty;
 import org.bukkit.World;
-import org.bukkit.WorldBorder;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -23,7 +22,7 @@ class WorldConfigTest {
 
     // Set difficulty of the world to hard
     WorldConfig
-        .getInstance(world)
+        .getWorldConfig(world)
         .setDifficulty(Difficulty.HARD);
 
     // Check that the world got set to hard
@@ -31,7 +30,7 @@ class WorldConfigTest {
 
     // Set difficulty of the world to normal
     WorldConfig
-        .getInstance(world)
+        .getWorldConfig(world)
         .setDifficulty(Difficulty.NORMAL);
 
 
@@ -45,13 +44,13 @@ class WorldConfigTest {
     MockWorldBorder border = (MockWorldBorder) world.getWorldBorder();
 
     WorldConfig
-        .getInstance(world)
+        .getWorldConfig(world)
         .setBorderSize(100);
 
     assertEquals(100, border.getSize());
 
     WorldConfig
-        .getInstance(world)
+        .getWorldConfig(world)
         .setBorderSize(200, 1);
 
     assertEquals(100, border.getSize());

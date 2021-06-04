@@ -17,7 +17,7 @@ class VillagerGuardianTest {
 
   @Test
   void onEntityDamage() {
-    VillagerGuardian villagerGuardian = new VillagerGuardian();
+    VillagerGuardian villagerGuardian = VillagerGuardian.getVillagerGuardian();
 
     // Create an event with mock entity data
     EntityDamageEvent entityEvent = new EntityDamageEvent(
