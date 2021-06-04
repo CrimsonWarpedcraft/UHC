@@ -31,6 +31,7 @@ repositories {
         content {
             excludeModule("com.destroystokyo.paper", "paper-api")
             excludeModule("io.papermc", "paperlib")
+            excludeModule("co.aikar", "acf-paper")
         }
     }
 
@@ -42,6 +43,19 @@ repositories {
             excludeModule("com.h3xstream.findsecbugs", "findsecbugs-plugin")
             excludeModule("org.junit.jupiter", "junit-jupiter-api")
             excludeModule("org.junit.jupiter", "junit-jupiter-engine")
+            excludeModule("co.aikar", "acf-paper")
+        }
+    }
+
+    maven {
+        url 'https://repo.aikar.co/content/groups/aikar/'
+        content {
+            excludeModule("com.github.spotbugs", "spotbugs-annotations")
+            excludeModule("com.h3xstream.findsecbugs", "findsecbugs-plugin")
+            excludeModule("org.junit.jupiter", "junit-jupiter-api")
+            excludeModule("org.junit.jupiter", "junit-jupiter-engine")
+            excludeModule("com.destroystokyo.paper", "paper-api")
+            excludeModule("io.papermc", "paperlib")
         }
     }
 }
@@ -49,6 +63,7 @@ repositories {
 dependencies {
     compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
     compileOnly 'com.github.spotbugs:spotbugs-annotations:4.2.3'
+    implementation "co.aikar:acf-paper:0.5.0-SNAPSHOT"
     implementation 'io.papermc:paperlib:1.0.6'
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
     testCompileOnly 'com.github.spotbugs:spotbugs-annotations:3.1.2'
