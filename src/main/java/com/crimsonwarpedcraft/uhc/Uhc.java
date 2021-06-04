@@ -1,6 +1,7 @@
 package com.crimsonwarpedcraft.uhc;
 
 import com.crimsonwarpedcraft.uhc.listener.ListenerRegister;
+import com.crimsonwarpedcraft.uhc.listener.UhcUserStoreGarbageCollector;
 import com.crimsonwarpedcraft.uhc.listener.VillagerGuardian;
 import io.papermc.lib.PaperLib;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,7 +21,8 @@ public class Uhc extends JavaPlugin {
     ListenerRegister
         .getInstance(this)
         // Register event listeners
-        .registerListener(new VillagerGuardian());
+        .registerListener(new VillagerGuardian())
+        .registerListener(UhcUserStoreGarbageCollector.getUhcUserStoreGarbageCollector());
 
     WorldConfig
         .getInstance(getServer().getWorld("world"))

@@ -25,7 +25,7 @@ public class ListenerRegister {
   }
 
   /**
-   * Registers an event listenter with the server.
+   * Registers an event listener with the server.
    *
    * @param listener the event listener to register
    * @return this instance that can be used for method chaining
