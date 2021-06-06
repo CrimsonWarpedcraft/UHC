@@ -27,10 +27,6 @@ public class CommandRegister {
     manager = new PaperCommandManager(plugin);
   }
 
-  protected CommandRegister(PaperCommandManager manager) {
-    this.manager = manager;
-  }
-
   /** Registers an object that has command annotations. */
   public CommandRegister register(BaseCommand command) {
     manager.registerCommand(Objects.requireNonNull(command));
