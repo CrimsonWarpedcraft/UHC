@@ -1971,6 +1971,11 @@ public class MockPlayer implements Player {
   }
 
   @Override
+  public boolean hasLineOfSight(@NotNull Location location) {
+    return false;
+  }
+
+  @Override
   public boolean getRemoveWhenFarAway() {
     return false;
   }

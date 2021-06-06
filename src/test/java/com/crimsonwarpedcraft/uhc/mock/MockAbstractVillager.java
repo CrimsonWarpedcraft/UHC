@@ -390,6 +390,11 @@ public class MockAbstractVillager implements AbstractVillager {
   }
 
   @Override
+  public boolean hasLineOfSight(@NotNull Location location) {
+    return false;
+  }
+
+  @Override
   public boolean getRemoveWhenFarAway() {
     return false;
   }
