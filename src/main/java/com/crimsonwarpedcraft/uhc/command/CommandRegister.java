@@ -2,6 +2,7 @@ package com.crimsonwarpedcraft.uhc.command;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.PaperCommandManager;
+import java.util.Objects;
 import org.bukkit.plugin.Plugin;
 
 /**
@@ -19,16 +20,20 @@ public class CommandRegister {
    * @return a new CommandRegister instance
    */
   public static CommandRegister newCommandRegister(Plugin plugin) {
-    return new CommandRegister(plugin);
+    return new CommandRegister(Objects.requireNonNull(plugin));
   }
 
   private CommandRegister(Plugin plugin) {
     manager = new PaperCommandManager(plugin);
   }
 
+  protected CommandRegister(PaperCommandManager manager) {
+    this.manager = manager;
+  }
+
   /** Registers an object that has command annotations. */
   public CommandRegister register(BaseCommand command) {
-    manager.registerCommand(command);
+    manager.registerCommand(Objects.requireNonNull(command));
 
     return this;
   }
