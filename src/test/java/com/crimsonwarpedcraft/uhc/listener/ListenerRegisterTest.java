@@ -1,5 +1,6 @@
 package com.crimsonwarpedcraft.uhc.listener;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.crimsonwarpedcraft.uhc.mock.MockListener;
@@ -20,11 +21,20 @@ class ListenerRegisterTest {
     MockPluginManager manager = new MockPluginManager();
     ListenerRegister register = new ListenerRegister(new MockPlugin(), manager);
 
+    // Check NPE
+    assertThrows(NullPointerException.class, () -> register.registerListener(null));
+
     // Register a mock listener with the register
     Listener listener = new MockListener();
     register.registerListener(listener);
 
     // Check that the listener was registered successfully
     assertTrue(manager.getListeners().contains(listener));
+  }
+
+  @Test
+  void getListenerRegister() {
+    // Check NPE
+    assertThrows(NullPointerException.class, () -> ListenerRegister.getListenerRegister(null));
   }
 }

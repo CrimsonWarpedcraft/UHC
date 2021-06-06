@@ -31,7 +31,7 @@ public class ListenerRegister {
    * @return this instance that can be used for method chaining
    */
   public ListenerRegister registerListener(Listener listener) {
-    manager.registerEvents(listener, plugin);
+    manager.registerEvents(Objects.requireNonNull(listener), plugin);
 
     return this;
   }
@@ -42,7 +42,7 @@ public class ListenerRegister {
    * @param plugin the plugin that is registering the event listeners
    * @return a ListenerRegister object
    */
-  public static ListenerRegister getInstance(Plugin plugin) {
+  public static ListenerRegister getListenerRegister(Plugin plugin) {
     return new ListenerRegister(Objects.requireNonNull(plugin));
   }
 }
