@@ -2,6 +2,7 @@ package com.crimsonwarpedcraft.uhc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.crimsonwarpedcraft.uhc.mock.MockWorld;
 import com.crimsonwarpedcraft.uhc.mock.MockWorldBorder;
@@ -19,6 +20,14 @@ class WorldConfigTest {
   @Test
   void setDifficulty() {
     World world = new MockWorld();
+
+    // Check NPE
+    assertThrows(
+        NullPointerException.class,
+        () -> WorldConfig
+            .getWorldConfig(world)
+            .setDifficulty(null)
+    );
 
     // Set difficulty of the world to hard
     WorldConfig
@@ -60,5 +69,15 @@ class WorldConfigTest {
     assertEquals(200, border.getSize());
 
     border.shutdownTasks();
+  }
+
+  @Test
+  void getWorldConfig() {
+    // Check NPE
+    assertThrows(
+        NullPointerException.class,
+        () -> WorldConfig
+            .getWorldConfig(null)
+    );
   }
 }

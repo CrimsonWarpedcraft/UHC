@@ -25,7 +25,7 @@ public class Uhc extends JavaPlugin {
         .registerListener(UhcUserStoreGarbageCollector.getUhcUserStoreGarbageCollector());
 
     WorldConfig
-        .getWorldConfig(getServer().getWorld("world"))
+        .getWorldConfig(getServer().getWorlds().get(0))
         .setBorderSize(1000)
         .setBorderSize(500, 300);
 

@@ -1,5 +1,6 @@
 package com.crimsonwarpedcraft.uhc;
 
+import java.util.Objects;
 import org.bukkit.Difficulty;
 import org.bukkit.World;
 
@@ -22,7 +23,7 @@ public class WorldConfig {
    * @return this instance that can be used for method chaining
    */
   public WorldConfig setDifficulty(Difficulty difficulty) {
-    world.setDifficulty(difficulty);
+    world.setDifficulty(Objects.requireNonNull(difficulty));
 
     return this;
   }
@@ -59,6 +60,6 @@ public class WorldConfig {
    * @return a WorldConfig instance
    */
   public static WorldConfig getWorldConfig(World world) {
-    return new WorldConfig(world);
+    return new WorldConfig(Objects.requireNonNull(world));
   }
 }
