@@ -3,6 +3,7 @@ package com.crimsonwarpedcraft.uhc.user;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
 import org.bukkit.command.CommandSender;
@@ -19,6 +20,20 @@ class UhcUserStoreTest {
   @Test
   void getUhcUser() {
     Player player = new MockPlayer();
+
+    // Check NPE
+    assertThrows(
+        NullPointerException.class,
+        () -> UhcUserStore
+            .getInstance()
+            .getUhcUser((CommandSender) null)
+    );
+    assertThrows(
+        NullPointerException.class,
+        () -> UhcUserStore
+            .getInstance()
+            .getUhcUser(null)
+    );
 
     // Get a UhcPlayer instance
     UhcPlayer uhcPlayer = UhcUserStore
@@ -47,6 +62,15 @@ class UhcUserStoreTest {
   @Test
   void removePlayer() {
     Player player = new MockPlayer();
+
+    // Check NPE
+    assertThrows(
+        NullPointerException.class,
+        () -> UhcUserStore
+            .getInstance()
+            .removePlayer(null)
+    );
+
 
     // Get a UhcPlayer instance
     UhcPlayer uhcPlayer = UhcUserStore

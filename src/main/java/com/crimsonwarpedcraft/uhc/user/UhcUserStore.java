@@ -2,6 +2,7 @@ package com.crimsonwarpedcraft.uhc.user;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -34,6 +35,8 @@ public class UhcUserStore {
    * @return the existing UhcPlayer for this Player if found, otherwise a new instance is returned
    */
   public UhcPlayer getUhcUser(Player player) {
+    Objects.requireNonNull(player);
+
     if (players.containsKey(player)) {
       return players.get(player);
     }
@@ -52,12 +55,12 @@ public class UhcUserStore {
    * @return a new UhcUser
    */
   public UhcUser getUhcUser(CommandSender sender) {
-    return new UhcUser(sender);
+    return new UhcUser(Objects.requireNonNull(sender));
   }
 
   /** Removes an exising UhcPlayer for the player. */
   public UhcUserStore removePlayer(Player player) {
-    players.remove(player);
+    players.remove(Objects.requireNonNull(player));
 
     return this;
   }
