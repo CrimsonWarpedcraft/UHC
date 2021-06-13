@@ -63,9 +63,6 @@ public class Uhc extends JavaPlugin {
         .registerListener(UhcUserStoreGarbageCollector.getUhcUserStoreGarbageCollector());
 
     // TODO Move this border shrinking code to StartCommand
-    WorldConfig
-        .getWorldConfig(getServer().getWorlds().get(0))
-        .setBorderSize(1000)
-        .setBorderSize(500, 300);
+
   }
 }

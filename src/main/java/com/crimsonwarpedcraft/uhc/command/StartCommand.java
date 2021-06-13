@@ -1,13 +1,22 @@
 package com.crimsonwarpedcraft.uhc.command;
 
+import static net.kyori.adventure.text.Component.text;
+import static org.bukkit.Bukkit.getServer;
+
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
 import com.crimsonwarpedcraft.uhc.GameState;
+import com.crimsonwarpedcraft.uhc.WorldConfig;
+import com.crimsonwarpedcraft.uhc.user.UhcUserStore;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 /**
  * Command to start the game.
@@ -36,8 +45,37 @@ public class StartCommand extends BaseCommand {
   @Description("Starts the game")
   @CommandPermission("uhc.admin")
   public void onStart(CommandSender sender) {
-    // TODO If game is running, start game, start world border shrinking and send message to all
-    //  players, otherwise, send error message to command sender. Consider setting all players'
-    //  health to 20
+
+    if (!game.isRunning()) {
+      game.setRunning(true);
+
+      WorldConfig
+          .getWorldConfig(getServer().getWorlds().get(0))
+          // TODO set variables for border size and time to shrink
+          // TODO prevent border from shrinking for an X amount of time
+          .setBorderSize(1000)
+          .setBorderSize(500, 300);
+
+      Collection<? extends Player> onlinePlayers = getServer().getOnlinePlayers();
+      for (Player player : onlinePlayers) {
+        UhcUserStore
+            .getInstance()
+            .getUhcUser(player)
+            //TODO Reset Player health to 20
+            .sendMessage(
+                text("Game Has BEGUN!!", NamedTextColor.GREEN)
+            );
+      }
+
+      // TODO save online players into whitelist, save old whitelist and replace it back on game end
+
+    } else {
+      UhcUserStore
+          .getInstance()
+          .getUhcUser(sender)
+          .sendMessage(
+              text("Error: Game Already Running", NamedTextColor.RED)
+          );
+    }
   }
 }
