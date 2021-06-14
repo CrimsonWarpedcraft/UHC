@@ -1,11 +1,15 @@
 package com.crimsonwarpedcraft.uhc;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
 import com.crimsonwarpedcraft.uhc.mock.MockServer;
+import com.crimsonwarpedcraft.uhc.mock.MockWorld;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -62,5 +66,23 @@ class GameStateTest {
 
     // Check that we can find the player in the collection
     assertTrue(game.getOnlinePlayers().contains(player));
+  }
+
+  @Test
+  void getWorld() {
+    MockServer server = new MockServer();
+    GameState game = GameState.newGameState(server);
+
+    // Add a fake world to the server
+    World world = new MockWorld();
+    server.loadWorld(world);
+
+    // Check that we can get the world based on its name
+    assertSame(
+        game.getWorld(
+            world.getName()
+        ),
+        world
+    );
   }
 }

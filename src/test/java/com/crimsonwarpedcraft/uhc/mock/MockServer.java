@@ -7,6 +7,7 @@ import io.papermc.paper.datapack.DatapackManager;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -75,6 +76,7 @@ import org.jetbrains.annotations.Nullable;
 @SuppressFBWarnings("NP_NONNULL_RETURN_VIOLATION")
 public class MockServer implements Server {
   public HashSet<Player> players = new HashSet<>();
+  public HashMap<String, World> worlds = new HashMap<>();
 
   @Override
   public @NotNull String getName() {
@@ -280,9 +282,13 @@ public class MockServer implements Server {
     return false;
   }
 
+  public void loadWorld(World world) {
+    worlds.put(world.getName(), world);
+  }
+
   @Override
   public @Nullable World getWorld(@NotNull String name) {
-    return null;
+    return worlds.get(name);
   }
 
   @Override

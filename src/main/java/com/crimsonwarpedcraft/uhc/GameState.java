@@ -3,6 +3,7 @@ package com.crimsonwarpedcraft.uhc;
 import java.util.Collection;
 import java.util.Objects;
 import org.bukkit.Server;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 /**
@@ -44,5 +45,10 @@ public class GameState {
   /** Returns a Collection of the currently online players. */
   public Collection<? extends Player> getOnlinePlayers() {
     return server.getOnlinePlayers();
+  }
+
+  /** Returns a world by its name. */
+  public World getWorld(String name) {
+    return server.getWorld(Objects.requireNonNull(name));
   }
 }

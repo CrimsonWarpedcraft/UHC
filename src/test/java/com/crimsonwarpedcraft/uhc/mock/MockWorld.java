@@ -499,7 +499,7 @@ public class MockWorld implements World {
 
   @Override
   public @NotNull String getName() {
-    return null;
+    return "world";
   }
 
   @Override
