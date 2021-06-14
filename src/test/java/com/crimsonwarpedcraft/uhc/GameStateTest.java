@@ -1,12 +1,13 @@
 package com.crimsonwarpedcraft.uhc;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
 import com.crimsonwarpedcraft.uhc.mock.MockServer;
-import org.bukkit.Server;
 import org.bukkit.entity.Player;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -15,6 +16,15 @@ import org.junit.jupiter.api.Test;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 class GameStateTest {
+
+  @BeforeAll
+  static void setUp() {
+    // Check NPE
+    assertThrows(
+        NullPointerException.class,
+        () -> GameState.newGameState(null)
+    );
+  }
 
   @Test
   void setRunning() {

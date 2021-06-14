@@ -1,6 +1,7 @@
 package com.crimsonwarpedcraft.uhc;
 
 import java.util.Collection;
+import java.util.Objects;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
@@ -11,11 +12,11 @@ import org.bukkit.entity.Player;
  */
 public class GameState {
   private boolean running;
-  private Server server;
+  private final Server server;
 
   /** Returns a new GameState instance. */
   public static GameState newGameState(Server server) {
-    return new GameState(server);
+    return new GameState(Objects.requireNonNull(server));
   }
 
   private GameState(Server server) {
