@@ -24,7 +24,7 @@ public class Uhc extends JavaPlugin {
         .getListenerRegister(this)
         // Register event listeners
         .registerListener(VillagerGuardian.getVillagerGuardian())
-        .registerListener(RegenPreventer.getRegenPreventer());
+        .registerListener(RegenPreventer.getRegenPreventer())
         .registerListener(ResurrectPreventer.getResurrectPreventer())
         .registerListener(UhcUserStoreGarbageCollector.getUhcUserStoreGarbageCollector());
 
