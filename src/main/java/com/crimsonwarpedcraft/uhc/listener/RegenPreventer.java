@@ -22,10 +22,9 @@ public class RegenPreventer implements Listener {
   /** Prevent any players from regaining health. */
   @EventHandler
   public void onPlayerRegainHealth(EntityRegainHealthEvent event) {
-    if (event.getEntity() instanceof Player) {
-      if (event.getRegainReason() == EntityRegainHealthEvent.RegainReason.SATIATED) {
-        event.setCancelled(true);
-      }
+    if (event.getEntity() instanceof Player
+        && event.getRegainReason() == EntityRegainHealthEvent.RegainReason.SATIATED) {
+      event.setCancelled(true);
     }
   }
 }
