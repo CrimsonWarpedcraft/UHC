@@ -3,6 +3,10 @@ package com.crimsonwarpedcraft.uhc;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
+import com.crimsonwarpedcraft.uhc.mock.MockServer;
+import org.bukkit.Server;
+import org.bukkit.entity.Player;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -14,7 +18,7 @@ class GameStateTest {
 
   @Test
   void setRunning() {
-    GameState game = GameState.newGameState();
+    GameState game = GameState.newGameState(new MockServer());
 
     // Check that setting to true works
     game.setRunning(true);
@@ -27,7 +31,7 @@ class GameStateTest {
 
   @Test
   void isRunning() {
-    GameState game = GameState.newGameState();
+    GameState game = GameState.newGameState(new MockServer());
 
     // Check that the default value is false
     assertFalse(game.isRunning());
@@ -35,5 +39,18 @@ class GameStateTest {
     // Check that we can see the updated value
     game.setRunning(true);
     assertTrue(game.isRunning());
+  }
+
+  @Test
+  void getOnlinePlayers() {
+    MockServer server = new MockServer();
+    GameState game = GameState.newGameState(server);
+
+    // Add a fake player to the server
+    Player player = new MockPlayer();
+    server.addPlayer(player);
+
+    // Check that we can find the player in the collection
+    assertTrue(game.getOnlinePlayers().contains(player));
   }
 }

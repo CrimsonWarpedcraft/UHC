@@ -1,5 +1,9 @@
 package com.crimsonwarpedcraft.uhc;
 
+import java.util.Collection;
+import org.bukkit.Server;
+import org.bukkit.entity.Player;
+
 /**
  * Stores information about the state of the game.
  *
@@ -7,14 +11,16 @@ package com.crimsonwarpedcraft.uhc;
  */
 public class GameState {
   private boolean running;
+  private Server server;
 
   /** Returns a new GameState instance. */
-  public static GameState newGameState() {
-    return new GameState();
+  public static GameState newGameState(Server server) {
+    return new GameState(server);
   }
 
-  private GameState() {
+  private GameState(Server server) {
     running = false;
+    this.server = server;
   }
 
   /**
@@ -32,5 +38,10 @@ public class GameState {
   /** Returns whether the game is running or not. */
   public boolean isRunning() {
     return running;
+  }
+
+  /** Returns a Collection of the currently online players. */
+  public Collection<? extends Player> getOnlinePlayers() {
+    return server.getOnlinePlayers();
   }
 }
