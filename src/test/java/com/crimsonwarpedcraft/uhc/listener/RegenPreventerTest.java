@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.crimsonwarpedcraft.uhc.mock.MockEntity;
+import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.junit.jupiter.api.Test;
 
@@ -22,14 +23,14 @@ class RegenPreventerTest {
     EntityRegainHealthEvent entityEvent = new EntityRegainHealthEvent(
         new MockEntity(),
         0,
-        EntityRegainHealthEvent.RegainReason.REGEN
+        EntityRegainHealthEvent.RegainReason.SATIATED
     );
     preventer.onPlayerRegainHealth(entityEvent);
     assertFalse(entityEvent.isCancelled());
 
     // Check that health potions are not cancelled
     EntityRegainHealthEvent playerMagicEvent = new EntityRegainHealthEvent(
-        new MockEntity(),
+        new MockPlayer(),
         0,
         EntityRegainHealthEvent.RegainReason.MAGIC_REGEN
     );
@@ -38,9 +39,9 @@ class RegenPreventerTest {
 
     // Check that regen is cancelled
     EntityRegainHealthEvent playerRegenEvent = new EntityRegainHealthEvent(
-        new MockEntity(),
+        new MockPlayer(),
         0,
-        EntityRegainHealthEvent.RegainReason.REGEN
+        EntityRegainHealthEvent.RegainReason.SATIATED
     );
     preventer.onPlayerRegainHealth(playerRegenEvent);
     assertTrue(playerRegenEvent.isCancelled());
