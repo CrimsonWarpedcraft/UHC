@@ -1,6 +1,7 @@
 package com.crimsonwarpedcraft.uhc;
 
 import com.crimsonwarpedcraft.uhc.listener.ListenerRegister;
+import com.crimsonwarpedcraft.uhc.listener.RegenPreventer;
 import com.crimsonwarpedcraft.uhc.listener.ResurrectPreventer;
 import com.crimsonwarpedcraft.uhc.listener.UhcUserStoreGarbageCollector;
 import com.crimsonwarpedcraft.uhc.listener.VillagerGuardian;
@@ -23,6 +24,7 @@ public class Uhc extends JavaPlugin {
         .getListenerRegister(this)
         // Register event listeners
         .registerListener(VillagerGuardian.getVillagerGuardian())
+        .registerListener(RegenPreventer.getRegenPreventer())
         .registerListener(ResurrectPreventer.getResurrectPreventer())
         .registerListener(UhcUserStoreGarbageCollector.getUhcUserStoreGarbageCollector());
 
