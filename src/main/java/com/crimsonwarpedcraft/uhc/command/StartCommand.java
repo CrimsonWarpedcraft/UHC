@@ -1,7 +1,6 @@
 package com.crimsonwarpedcraft.uhc.command;
 
 import static net.kyori.adventure.text.Component.text;
-import static org.bukkit.Bukkit.getServer;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
@@ -12,7 +11,6 @@ import com.crimsonwarpedcraft.uhc.GameState;
 import com.crimsonwarpedcraft.uhc.WorldConfig;
 import com.crimsonwarpedcraft.uhc.user.UhcUserStore;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.CommandSender;
@@ -50,13 +48,13 @@ public class StartCommand extends BaseCommand {
       game.setRunning(true);
 
       WorldConfig
-          .getWorldConfig(getServer().getWorlds().get(0))
+          .getWorldConfig(game.getWorld("world"))
           // TODO set variables for border size and time to shrink
           // TODO prevent border from shrinking for an X amount of time
           .setBorderSize(1000)
           .setBorderSize(500, 300);
 
-      Collection<? extends Player> onlinePlayers = getServer().getOnlinePlayers();
+      Collection<? extends Player> onlinePlayers = game.getOnlinePlayers();
       for (Player player : onlinePlayers) {
         UhcUserStore
             .getInstance()

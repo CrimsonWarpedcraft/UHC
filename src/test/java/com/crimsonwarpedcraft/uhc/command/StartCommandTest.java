@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.crimsonwarpedcraft.uhc.GameState;
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
 import com.crimsonwarpedcraft.uhc.mock.MockServer;
+import com.crimsonwarpedcraft.uhc.mock.MockWorld;
 import net.kyori.adventure.text.Component;
 import org.junit.jupiter.api.Test;
 
@@ -19,9 +20,12 @@ class StartCommandTest {
 
   @Test
   void onStart() {
-    GameState game = GameState.newGameState(new MockServer());
-    StartCommand start = StartCommand.getStartCommand(game);
     MockPlayer player = new MockPlayer();
+    MockServer server = new MockServer();
+    server.addPlayer(player);
+    server.loadWorld(new MockWorld());
+    GameState game = GameState.newGameState(server);
+    StartCommand start = StartCommand.getStartCommand(game);
 
     // Run the start command
     start.onStart(player);
