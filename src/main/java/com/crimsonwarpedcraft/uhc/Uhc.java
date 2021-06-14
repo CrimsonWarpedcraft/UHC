@@ -61,8 +61,5 @@ public class Uhc extends JavaPlugin {
         .registerListener(ResurrectPreventer.getResurrectPreventer())
         .registerListener(EndDisabler.getEndDisabler())
         .registerListener(UhcUserStoreGarbageCollector.getUhcUserStoreGarbageCollector());
-
-    // TODO Move this border shrinking code to StartCommand
-
   }
 }
