@@ -13,6 +13,7 @@ import com.crimsonwarpedcraft.uhc.user.UhcUserStore;
 import java.util.Collection;
 import java.util.Objects;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Difficulty;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -51,7 +52,7 @@ public class StartCommand extends BaseCommand {
       // Sets Config data
       WorldConfig
           .getWorldConfig(game.getWorld("world"))
-          // TODO set difficulty to hardcore
+          .setDifficulty(Difficulty.HARD) //Sets difficulty to HARD
           // TODO set variables for border size and time to shrink
           // TODO prevent border from shrinking for an X amount of time
           .setBorderSize(1000) //Creates World Border
@@ -63,7 +64,11 @@ public class StartCommand extends BaseCommand {
         UhcUserStore
             .getInstance()
             .getUhcUser(player)
-            //TODO Reset Player stats
+            .resetHealth()
+            .resetHunger()
+            .resetSaturation()
+            .resetExhaustion()
+            .resetExp()
             .sendMessage(
                 text("Game Has BEGUN!!", NamedTextColor.GREEN)
             );
