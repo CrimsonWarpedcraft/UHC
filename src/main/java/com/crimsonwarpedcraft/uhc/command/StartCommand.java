@@ -44,17 +44,20 @@ public class StartCommand extends BaseCommand {
   @CommandPermission("uhc.admin")
   public void onStart(CommandSender sender) {
 
+    // If game is not already running, starts the game
     if (!game.isRunning()) {
       game.setRunning(true);
 
+      // Sets Config data
       WorldConfig
           .getWorldConfig(game.getWorld("world"))
           // TODO set difficulty to hardcore
           // TODO set variables for border size and time to shrink
           // TODO prevent border from shrinking for an X amount of time
-          .setBorderSize(1000)
-          .setBorderSize(500, 300);
+          .setBorderSize(1000) //Creates World Border
+          .setBorderSize(500, 300); //Shrinks world border
 
+      //Lists all players, resets their stats & sends them a BEGIN message
       Collection<? extends Player> onlinePlayers = game.getOnlinePlayers();
       for (Player player : onlinePlayers) {
         UhcUserStore
@@ -68,6 +71,7 @@ public class StartCommand extends BaseCommand {
 
       // TODO save online players into whitelist, save old whitelist and replace it back on game end
 
+    // If game is already running, sends an error message
     } else {
       UhcUserStore
           .getInstance()
