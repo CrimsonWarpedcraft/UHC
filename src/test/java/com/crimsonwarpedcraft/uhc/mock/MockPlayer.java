@@ -92,8 +92,23 @@ import org.jetbrains.annotations.Nullable;
  */
 @SuppressFBWarnings({"NP_NONNULL_RETURN_VIOLATION", "NP_METHOD_RETURN_RELAXING_ANNOTATION"})
 public class MockPlayer implements Player {
+  private final AttributeInstance maxHealthAttribute;
   private final Map<String, Boolean> permissions = new HashMap<>();
   private Component lastMessage;
+  private double health;
+  private float exhaustion;
+  private float experience;
+  private float saturation;
+  private int foodLevel;
+
+  /** Create a new MockPlayer object. */
+  public MockPlayer() {
+    maxHealthAttribute = new MockAttributeInstance(Attribute.GENERIC_MAX_HEALTH, 20, 20);
+    foodLevel = 20;
+    saturation = 5;
+    exhaustion = 0;
+    experience = 0;
+  }
 
   @Override
   public @NotNull Component displayName() {
@@ -1091,12 +1106,12 @@ public class MockPlayer implements Player {
 
   @Override
   public float getExp() {
-    return 0;
+    return experience;
   }
 
   @Override
   public void setExp(float exp) {
-
+    experience = exp;
   }
 
   @Override
@@ -2267,32 +2282,32 @@ public class MockPlayer implements Player {
 
   @Override
   public float getExhaustion() {
-    return 0;
+    return exhaustion;
   }
 
   @Override
   public void setExhaustion(float value) {
-
+    exhaustion = value;
   }
 
   @Override
   public float getSaturation() {
-    return 0;
+    return saturation;
   }
 
   @Override
   public void setSaturation(float value) {
-
+    this.saturation = value;
   }
 
   @Override
   public int getFoodLevel() {
-    return 0;
+    return foodLevel;
   }
 
   @Override
   public void setFoodLevel(int value) {
-
+    foodLevel = value;
   }
 
   @Override
@@ -2327,6 +2342,10 @@ public class MockPlayer implements Player {
 
   @Override
   public @Nullable AttributeInstance getAttribute(@NotNull Attribute attribute) {
+    if (attribute == Attribute.GENERIC_MAX_HEALTH) {
+      return maxHealthAttribute;
+    }
+
     return null;
   }
 
@@ -2347,12 +2366,12 @@ public class MockPlayer implements Player {
 
   @Override
   public double getHealth() {
-    return 0;
+    return health;
   }
 
   @Override
   public void setHealth(double health) {
-
+    this.health = health;
   }
 
   @Override
