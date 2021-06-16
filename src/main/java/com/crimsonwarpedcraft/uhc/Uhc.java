@@ -4,6 +4,7 @@ import com.crimsonwarpedcraft.uhc.listener.EndDisabler;
 import com.crimsonwarpedcraft.uhc.listener.ListenerRegister;
 import com.crimsonwarpedcraft.uhc.listener.RegenPreventer;
 import com.crimsonwarpedcraft.uhc.listener.ResurrectPreventer;
+import com.crimsonwarpedcraft.uhc.listener.TradeDisabler;
 import com.crimsonwarpedcraft.uhc.listener.UhcUserStoreGarbageCollector;
 import com.crimsonwarpedcraft.uhc.listener.VillagerGuardian;
 import io.papermc.lib.PaperLib;
@@ -25,6 +26,7 @@ public class Uhc extends JavaPlugin {
         .getListenerRegister(this)
         // Register event listeners
         .registerListener(VillagerGuardian.getVillagerGuardian())
+        .registerListener(TradeDisabler.getTradeDisabler())
         .registerListener(RegenPreventer.getRegenPreventer())
         .registerListener(ResurrectPreventer.getResurrectPreventer())
         .registerListener(EndDisabler.getEndDisabler())
