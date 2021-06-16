@@ -49,6 +49,7 @@ public class StartCommand extends BaseCommand {
 
       WorldConfig
           .getWorldConfig(game.getWorld("world"))
+          // TODO set difficulty to hardcore
           // TODO set variables for border size and time to shrink
           // TODO prevent border from shrinking for an X amount of time
           .setBorderSize(1000)
@@ -59,7 +60,7 @@ public class StartCommand extends BaseCommand {
         UhcUserStore
             .getInstance()
             .getUhcUser(player)
-            //TODO Reset Player health to 20
+            //TODO Reset Player stats
             .sendMessage(
                 text("Game Has BEGUN!!", NamedTextColor.GREEN)
             );
