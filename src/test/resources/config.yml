@@ -1,0 +1,5 @@
+world:
+  main-world-name: world1
+  border-start-size: 100
+  border-shrink-seconds: 100
+  border-shrink-size: 100
