@@ -1,6 +1,5 @@
 package com.crimsonwarpedcraft.uhc;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -11,7 +10,6 @@ import com.crimsonwarpedcraft.uhc.mock.MockServer;
 import com.crimsonwarpedcraft.uhc.mock.MockWorld;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -21,8 +19,8 @@ import org.junit.jupiter.api.Test;
  */
 class GameStateTest {
 
-  @BeforeAll
-  static void setUp() {
+  @Test
+  void newGameState() {
     // Check NPE
     assertThrows(
         NullPointerException.class,
