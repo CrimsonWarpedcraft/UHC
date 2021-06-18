@@ -75,8 +75,8 @@ public class GameConfig {
     // World settings
     defaults.set(WORLD_MAIN_WORLD_NAME, "world");
     defaults.set(WORLD_BORDER_START_SIZE, 1000D);
-    defaults.set(WORLD_BORDER_SHRINK_SECONDS, 2700L);
-    defaults.set(WORLD_BORDER_SHRINK_SIZE, 100D);
+    defaults.set(WORLD_BORDER_SHRINK_SECONDS, 10800L);
+    defaults.set(WORLD_BORDER_SHRINK_SIZE, 500D);
 
     config.setDefaults(defaults);
   }
