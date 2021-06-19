@@ -66,6 +66,7 @@ import org.jetbrains.annotations.Nullable;
 @SuppressFBWarnings("NP_NONNULL_RETURN_VIOLATION")
 public class MockWorld implements World {
   private final WorldBorder border = new MockWorldBorder();
+  private String name = "world";
   private Difficulty difficulty = Difficulty.NORMAL;
 
   @Override
@@ -499,7 +500,11 @@ public class MockWorld implements World {
 
   @Override
   public @NotNull String getName() {
-    return "world";
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   @Override

@@ -1,5 +1,7 @@
 package com.crimsonwarpedcraft.uhc;
 
+import com.crimsonwarpedcraft.uhc.command.CommandRegister;
+import com.crimsonwarpedcraft.uhc.command.StartCommand;
 import com.crimsonwarpedcraft.uhc.listener.EndDisabler;
 import com.crimsonwarpedcraft.uhc.listener.ListenerRegister;
 import com.crimsonwarpedcraft.uhc.listener.RegenPreventer;
@@ -41,6 +43,15 @@ public class Uhc extends JavaPlugin {
           );
     }
 
+    CommandRegister
+        .newCommandRegister(this)
+        .register(
+            StartCommand.getStartCommand(
+                GameState.newGameState(getServer()),
+                gameConfig
+            )
+        );
+
     // Used for registering event listeners with
     ListenerRegister
         .getListenerRegister(this)
@@ -51,10 +62,5 @@ public class Uhc extends JavaPlugin {
         .registerListener(ResurrectPreventer.getResurrectPreventer())
         .registerListener(EndDisabler.getEndDisabler())
         .registerListener(UhcUserStoreGarbageCollector.getUhcUserStoreGarbageCollector());
-
-    WorldConfig
-        .getWorldConfig(getServer().getWorlds().get(0))
-        .setBorderSize(1000)
-        .setBorderSize(500, 300);
   }
 }
