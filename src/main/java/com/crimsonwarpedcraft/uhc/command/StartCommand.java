@@ -7,6 +7,7 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
+import com.crimsonwarpedcraft.uhc.GameConfig;
 import com.crimsonwarpedcraft.uhc.GameState;
 import com.crimsonwarpedcraft.uhc.WorldConfig;
 import com.crimsonwarpedcraft.uhc.user.UhcUserStore;
@@ -25,18 +26,20 @@ import org.bukkit.entity.Player;
 @CommandAlias("uhc")
 public class StartCommand extends BaseCommand {
   private final GameState game;
+  private final GameConfig config;
 
   /**
    * Returns an instance of a StartCommand.
    *
    * @param game the state of the game
    */
-  public static StartCommand getStartCommand(GameState game) {
-    return new StartCommand(Objects.requireNonNull(game));
+  public static StartCommand getStartCommand(GameState game, GameConfig config) {
+    return new StartCommand(Objects.requireNonNull(game), Objects.requireNonNull(config));
   }
 
-  private StartCommand(GameState game) {
+  private StartCommand(GameState game, GameConfig config) {
     this.game = game;
+    this.config = config;
   }
 
   /** Command to start the game. */
@@ -51,12 +54,15 @@ public class StartCommand extends BaseCommand {
 
       // Sets Config data
       WorldConfig
-          .getWorldConfig(game.getWorld("world"))
+          .getWorldConfig(game.getWorld(config.getMainWorldName()))
           .setDifficulty(Difficulty.HARD) //Sets difficulty to HARD
-          // TODO set variables for border size and time to shrink
           // TODO prevent border from shrinking for an X amount of time
-          .setBorderSize(1000) //Creates World Border
-          .setBorderSize(500, 300); //Shrinks world border
+          .setBorderSize(config.getBorderStartSize()) //Creates World Border
+          //Shrink world border
+          .setBorderSize(
+              config.getBorderShrinkSize(),
+              config.getBorderShrinkSeconds()
+          );
 
       //Lists all players, resets their stats & sends them a BEGIN message
       Collection<? extends Player> onlinePlayers = game.getOnlinePlayers();

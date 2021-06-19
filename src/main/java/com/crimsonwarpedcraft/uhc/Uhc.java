@@ -47,7 +47,8 @@ public class Uhc extends JavaPlugin {
         .newCommandRegister(this)
         .register(
             StartCommand.getStartCommand(
-                GameState.newGameState(getServer())
+                GameState.newGameState(getServer()),
+                gameConfig
             )
         );
 
