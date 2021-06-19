@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -77,6 +78,7 @@ import org.jetbrains.annotations.Nullable;
 public class MockServer implements Server {
   public HashSet<Player> players = new HashSet<>();
   public HashMap<String, World> worlds = new HashMap<>();
+  public List<Recipe> recipes = new LinkedList<>();
 
   @Override
   public @NotNull String getName() {
@@ -360,7 +362,7 @@ public class MockServer implements Server {
 
   @Override
   public boolean addRecipe(@Nullable Recipe recipe) {
-    return false;
+    return recipe != null && recipes.add(recipe);
   }
 
   @Override
@@ -375,12 +377,17 @@ public class MockServer implements Server {
 
   @Override
   public @NotNull Iterator<Recipe> recipeIterator() {
-    return null;
+    // Return a copy of recipes so it's effectively immutable
+    return new LinkedList<>(recipes).listIterator();
+  }
+
+  public boolean hasRecipe(Recipe recipe) {
+    return recipes.contains(recipe);
   }
 
   @Override
   public void clearRecipes() {
-
+    recipes.clear();
   }
 
   @Override

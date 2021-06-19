@@ -13,6 +13,8 @@ import io.papermc.lib.PaperLib;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -27,6 +29,16 @@ public class Uhc extends JavaPlugin {
     PaperLib.suggestPaper(this);
 
     GameConfig gameConfig = GameConfig.getNewGameConfig(getConfig());
+
+    RecipeManager
+        .getNewRecipeManager(getServer())
+        // Remove any recipe that results in suspicious stew
+        .filter(
+            recipe -> !recipe.getResult().isSimilar(
+                new ItemStack(Material.SUSPICIOUS_STEW)
+            )
+        )
+        .apply();
 
     // Try to overwrite config file
     // This lets us update the config file with default
