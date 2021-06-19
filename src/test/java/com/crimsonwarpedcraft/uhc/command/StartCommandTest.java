@@ -1,18 +1,23 @@
 package com.crimsonwarpedcraft.uhc.command;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.crimsonwarpedcraft.uhc.GameConfig;
 import com.crimsonwarpedcraft.uhc.GameState;
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
 import com.crimsonwarpedcraft.uhc.mock.MockServer;
 import com.crimsonwarpedcraft.uhc.mock.MockWorld;
+import java.nio.file.Paths;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Difficulty;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -40,12 +45,23 @@ class StartCommandTest {
     server.addPlayer(player2);
 
     MockWorld world = new MockWorld();
+    world.setName("world1");
     world.getWorldBorder().setSize(5);
     world.setDifficulty(Difficulty.PEACEFUL);
     server.loadWorld(world);
 
+    FileConfiguration config = new YamlConfiguration();
+    assertDoesNotThrow(
+        () -> config.load(
+            Paths.get("src", "test", "resources", "config.yml").toFile()
+        )
+    );
+
     GameState game = GameState.newGameState(server);
-    StartCommand start = StartCommand.getStartCommand(game);
+    StartCommand start = StartCommand.getStartCommand(
+        game,
+        GameConfig.getNewGameConfig(config)
+    );
 
     // Run the start command
     start.onStart(player2);
@@ -77,6 +93,8 @@ class StartCommandTest {
 
     // Make sure that the world border was set
     assertNotEquals(5, world.getWorldBorder().getSize());
+
+    // TODO: Maybe check if the border shrinks?
 
     // Make sure that the difficulty was set to hardcore
     assertEquals(Difficulty.HARD, world.getDifficulty());
