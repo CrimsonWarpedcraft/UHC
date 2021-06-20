@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.crimsonwarpedcraft.uhc.game.RecipeManager;
 import com.crimsonwarpedcraft.uhc.mock.MockItemStack;
 import com.crimsonwarpedcraft.uhc.mock.MockRecipe;
 import com.crimsonwarpedcraft.uhc.mock.MockServer;
@@ -50,8 +49,9 @@ class RecipeManagerTest {
     server.addRecipe(recipe2);
 
     RecipeManager manager = RecipeManager
-        .getNewRecipeManager(server)
-        .apply();
+        .getNewRecipeManager(server);
+
+    manager.apply();
 
     // Make sure the recipe hasn't been removed yet
     assertTrue(server.hasRecipe(recipe1));

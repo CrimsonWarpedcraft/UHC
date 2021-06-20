@@ -39,7 +39,7 @@ public class RecipeManager {
   }
 
   /** Sets the available recipes to the filtered recipes. */
-  public RecipeManager apply() {
+  public void apply() {
     List<Recipe> newRecipes = new LinkedList<>();
 
     server
