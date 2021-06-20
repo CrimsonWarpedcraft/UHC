@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 class StartCommandTest {
 
   @Test
-  void onStart() {
+  void onStart() throws InterruptedException {
     MockPlayer player1 = new MockPlayer();
     player1.setHealth(10);
     AttributeInstance attribute = player1.getAttribute(Attribute.GENERIC_MAX_HEALTH);
@@ -50,17 +50,18 @@ class StartCommandTest {
     world.setDifficulty(Difficulty.PEACEFUL);
     server.loadWorld(world);
 
-    FileConfiguration config = new YamlConfiguration();
+    FileConfiguration configFile = new YamlConfiguration();
     assertDoesNotThrow(
-        () -> config.load(
+        () -> configFile.load(
             Paths.get("src", "test", "resources", "config.yml").toFile()
         )
     );
 
     GameState game = GameState.newGameState(server);
+    GameConfig config = GameConfig.getNewGameConfig(configFile);
     StartCommand start = StartCommand.getStartCommand(
         game,
-        GameConfig.getNewGameConfig(config)
+        config
     );
 
     // Run the start command
@@ -92,12 +93,15 @@ class StartCommandTest {
     assertNotEquals(10, player1.getSaturation());
 
     // Make sure that the world border was set
-    assertNotEquals(5, world.getWorldBorder().getSize());
-
-    // TODO: Maybe check if the border shrinks?
+    assertEquals(config.getBorderStartSize(), world.getWorldBorder().getSize());
 
     // Make sure that the difficulty was set to hardcore
     assertEquals(Difficulty.HARD, world.getDifficulty());
+
+    // Make sure border shrink after the configured seconds
+    Thread.sleep(config.getBorderShrinkSeconds() * 1000);
+
+    assertEquals(config.getBorderShrinkSize(), world.getWorldBorder().getSize());
 
     // Run the start command again
     start.onStart(player2);
