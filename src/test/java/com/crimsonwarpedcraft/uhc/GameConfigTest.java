@@ -32,6 +32,13 @@ class GameConfigTest {
   @Test
   void getMainWorldName() {
     YamlConfiguration fileConfig = new YamlConfiguration();
+    GameConfig config = GameConfig.getNewGameConfig(fileConfig);
+
+    // Make sure we get the expected default value
+    assertEquals(
+        "world",
+        config.getMainWorldName()
+    );
 
     // Load config from file
     assertDoesNotThrow(
@@ -40,18 +47,23 @@ class GameConfigTest {
         )
     );
 
-    // Make sure we get the expected value
+    // Make sure we get the expected loaded value
     assertEquals(
         "world1",
-        GameConfig
-            .getNewGameConfig(fileConfig)
-            .getMainWorldName()
+        config.getMainWorldName()
     );
   }
 
   @Test
   void getBorderStartSize() {
     YamlConfiguration fileConfig = new YamlConfiguration();
+    GameConfig config = GameConfig.getNewGameConfig(fileConfig);
+
+    // Make sure we get the expected default value
+    assertEquals(
+        1000,
+        config.getBorderStartSize()
+    );
 
     // Load config from file
     assertDoesNotThrow(
@@ -60,18 +72,23 @@ class GameConfigTest {
         )
     );
 
-    // Make sure we get the expected value
+    // Make sure we get the expected loaded value
     assertEquals(
         100,
-        GameConfig
-            .getNewGameConfig(fileConfig)
-            .getBorderStartSize()
+        config.getBorderStartSize()
     );
   }
 
   @Test
   void getBorderShrinkSeconds() {
     YamlConfiguration fileConfig = new YamlConfiguration();
+    GameConfig config = GameConfig.getNewGameConfig(fileConfig);
+
+    // Make sure we get the expected default value
+    assertEquals(
+        10800,
+        config.getBorderShrinkSeconds()
+    );
 
     // Load config from file
     assertDoesNotThrow(
@@ -80,18 +97,23 @@ class GameConfigTest {
         )
     );
 
-    // Make sure we get the expected value
+    // Make sure we get the expected loaded value
     assertEquals(
-        100,
-        GameConfig
-            .getNewGameConfig(fileConfig)
-            .getBorderShrinkSeconds()
+        5,
+        config.getBorderShrinkSeconds()
     );
   }
 
   @Test
   void getBorderShrinkSize() {
     YamlConfiguration fileConfig = new YamlConfiguration();
+    GameConfig config = GameConfig.getNewGameConfig(fileConfig);
+
+    // Make sure we get the expected default value
+    assertEquals(
+        500,
+        config.getBorderShrinkSize()
+    );
 
     // Load config from file
     assertDoesNotThrow(
@@ -100,12 +122,10 @@ class GameConfigTest {
         )
     );
 
-    // Make sure we get the expected value
+    // Make sure we get the expected loaded value
     assertEquals(
-        100,
-        GameConfig
-            .getNewGameConfig(fileConfig)
-            .getBorderShrinkSize()
+        50,
+        config.getBorderShrinkSize()
     );
   }
 
