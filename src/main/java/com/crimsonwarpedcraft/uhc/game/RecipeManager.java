@@ -1,8 +1,11 @@
 package com.crimsonwarpedcraft.uhc.game;
 
+import com.crimsonwarpedcraft.uhc.Uhc;
+import com.crimsonwarpedcraft.uhc.util.UhcLogger;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 import org.bukkit.Server;
 import org.bukkit.inventory.Recipe;
@@ -13,6 +16,7 @@ import org.bukkit.inventory.Recipe;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class RecipeManager {
+  private static final UhcLogger LOGGER = Uhc.getUhcLogger();
   private final List<Predicate<Recipe>> filters;
   private final Server server;
 
@@ -42,11 +46,13 @@ public class RecipeManager {
   public void apply() {
     List<Recipe> newRecipes = new LinkedList<>();
 
+    AtomicInteger originalRecipes = new AtomicInteger();
     server
         .recipeIterator()
         // For available each recipe
         .forEachRemaining(
             recipe -> {
+              originalRecipes.addAndGet(1);
               if (
                   // Combine all the previous filters into one boolean for this recipe using reduce
                   filters
@@ -64,6 +70,7 @@ public class RecipeManager {
     server.clearRecipes();
     newRecipes.forEach(server::addRecipe);
 
-    return this;
+    int removed = originalRecipes.getAcquire() - newRecipes.size();
+    LOGGER.log(UhcLogger.Level.INFO, "Removed " + removed + " recipe(s)");
   }
 }

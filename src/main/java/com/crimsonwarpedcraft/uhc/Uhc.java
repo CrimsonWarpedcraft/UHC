@@ -12,10 +12,12 @@ import com.crimsonwarpedcraft.uhc.listener.ResurrectPreventer;
 import com.crimsonwarpedcraft.uhc.listener.TradeDisabler;
 import com.crimsonwarpedcraft.uhc.listener.UhcUserStoreGarbageCollector;
 import com.crimsonwarpedcraft.uhc.listener.VillagerGuardian;
+import com.crimsonwarpedcraft.uhc.util.UhcLogger;
+import com.crimsonwarpedcraft.uhc.util.UhcLoggerFactory;
 import io.papermc.lib.PaperLib;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ComplexRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,10 +28,16 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class Uhc extends JavaPlugin {
+  // We only assign these here to prevent null issues in testing, we reassign them later
+  private static UhcLoggerFactory factory = UhcLoggerFactory.getNewUhcLoggerFactory(null);
+  private static UhcLogger LOGGER = factory.getNewUhcLogger();
 
   @Override
   public void onEnable() {
     PaperLib.suggestPaper(this);
+
+    // Reset factory now that we can use our logger
+    resetFactory(getLogger());
 
     GameConfig gameConfig = GameConfig.getNewGameConfig(getConfig());
 
@@ -41,11 +49,10 @@ public class Uhc extends JavaPlugin {
           new File(getDataFolder(), "config.yml")
       );
     } catch (IOException e) {
-      getLogger()
-          .log(
-              Level.WARNING,
-              "Error writing config file, your config may be out of date!"
-          );
+      LOGGER.log(
+          UhcLogger.Level.WARN,
+          "Error writing config file, your config may be out of date!"
+      );
     }
 
     RecipeManager
@@ -78,5 +85,17 @@ public class Uhc extends JavaPlugin {
         .registerListener(TradeDisabler.getTradeDisabler())
         .registerListener(UhcUserStoreGarbageCollector.getUhcUserStoreGarbageCollector())
         .registerListener(VillagerGuardian.getVillagerGuardian());
+
+    LOGGER.log(UhcLogger.Level.INFO, "Successfully enabled UHC!");
+  }
+
+  private static void resetFactory(Logger logger) {
+    factory = UhcLoggerFactory.getNewUhcLoggerFactory(logger);
+    LOGGER = factory.getNewUhcLogger();
+  }
+
+  /** Returns a UhcLogger instance that uses this plugin's logging system. */
+  public static UhcLogger getUhcLogger() {
+    return factory.getNewUhcLogger();
   }
 }
