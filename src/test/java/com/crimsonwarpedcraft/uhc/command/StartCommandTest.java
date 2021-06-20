@@ -99,7 +99,7 @@ class StartCommandTest {
     assertEquals(Difficulty.HARD, world.getDifficulty());
 
     // Make sure border shrink after the configured seconds
-    Thread.sleep(config.getBorderShrinkSeconds() * 1000);
+    Thread.sleep((config.getBorderShrinkSeconds() + 1) * 1000);
 
     assertEquals(config.getBorderShrinkSize(), world.getWorldBorder().getSize());
 
