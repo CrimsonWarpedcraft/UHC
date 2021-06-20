@@ -69,11 +69,11 @@ public class Uhc extends JavaPlugin {
     ListenerRegister
         .getListenerRegister(this)
         // Register event listeners
-        .registerListener(VillagerGuardian.getVillagerGuardian())
-        .registerListener(TradeDisabler.getTradeDisabler())
+        .registerListener(EndDisabler.getEndDisabler())
         .registerListener(RegenPreventer.getRegenPreventer())
         .registerListener(ResurrectPreventer.getResurrectPreventer())
-        .registerListener(EndDisabler.getEndDisabler())
-        .registerListener(UhcUserStoreGarbageCollector.getUhcUserStoreGarbageCollector());
+        .registerListener(TradeDisabler.getTradeDisabler())
+        .registerListener(UhcUserStoreGarbageCollector.getUhcUserStoreGarbageCollector())
+        .registerListener(VillagerGuardian.getVillagerGuardian());
   }
 }
