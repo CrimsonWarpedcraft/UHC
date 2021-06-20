@@ -1,9 +1,10 @@
-package com.crimsonwarpedcraft.uhc;
+package com.crimsonwarpedcraft.uhc.game;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.crimsonwarpedcraft.uhc.game.WorldConfig;
 import com.crimsonwarpedcraft.uhc.mock.MockWorld;
 import com.crimsonwarpedcraft.uhc.mock.MockWorldBorder;
 import org.bukkit.Difficulty;

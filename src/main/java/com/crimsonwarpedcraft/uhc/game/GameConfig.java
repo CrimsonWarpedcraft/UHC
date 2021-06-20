@@ -1,4 +1,4 @@
-package com.crimsonwarpedcraft.uhc;
+package com.crimsonwarpedcraft.uhc.game;
 
 import java.io.File;
 import java.io.IOException;

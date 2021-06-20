@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.crimsonwarpedcraft.uhc.GameConfig;
-import com.crimsonwarpedcraft.uhc.GameState;
+import com.crimsonwarpedcraft.uhc.game.GameConfig;
+import com.crimsonwarpedcraft.uhc.game.GameState;
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
 import com.crimsonwarpedcraft.uhc.mock.MockServer;
 import com.crimsonwarpedcraft.uhc.mock.MockWorld;

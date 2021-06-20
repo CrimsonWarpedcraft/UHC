@@ -2,6 +2,9 @@ package com.crimsonwarpedcraft.uhc;
 
 import com.crimsonwarpedcraft.uhc.command.CommandRegister;
 import com.crimsonwarpedcraft.uhc.command.StartCommand;
+import com.crimsonwarpedcraft.uhc.game.GameConfig;
+import com.crimsonwarpedcraft.uhc.game.GameState;
+import com.crimsonwarpedcraft.uhc.game.RecipeManager;
 import com.crimsonwarpedcraft.uhc.listener.EndDisabler;
 import com.crimsonwarpedcraft.uhc.listener.ListenerRegister;
 import com.crimsonwarpedcraft.uhc.listener.RegenPreventer;

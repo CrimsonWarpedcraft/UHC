@@ -1,4 +1,4 @@
-package com.crimsonwarpedcraft.uhc;
+package com.crimsonwarpedcraft.uhc.game;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;

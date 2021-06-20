@@ -1,10 +1,11 @@
-package com.crimsonwarpedcraft.uhc;
+package com.crimsonwarpedcraft.uhc.game;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.crimsonwarpedcraft.uhc.game.GameState;
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
 import com.crimsonwarpedcraft.uhc.mock.MockServer;
 import com.crimsonwarpedcraft.uhc.mock.MockWorld;
