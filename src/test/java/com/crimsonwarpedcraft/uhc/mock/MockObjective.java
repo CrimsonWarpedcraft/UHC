@@ -1,6 +1,7 @@
 package com.crimsonwarpedcraft.uhc.mock;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Map;
 import net.kyori.adventure.text.Component;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -22,13 +23,19 @@ public class MockObjective implements Objective {
   private final String criteria;
   private final Component displayName;
   private final RenderType renderType;
+  private final Map<String, Objective> objectives;
 
   /** Creates a new MockObjective instance with all required data. */
-  public MockObjective(String name, String criteria, Component displayName, RenderType renderType) {
+  public MockObjective(String name,
+                       String criteria,
+                       Component displayName,
+                       RenderType renderType,
+                       Map<String, Objective> objectives) {
     this.name = name;
     this.criteria = criteria;
     this.displayName = displayName;
     this.renderType = renderType;
+    this.objectives = objectives;
   }
 
   @Override
@@ -75,7 +82,7 @@ public class MockObjective implements Objective {
 
   @Override
   public void unregister() throws IllegalStateException {
-
+    objectives.remove(name);
   }
 
   @Override

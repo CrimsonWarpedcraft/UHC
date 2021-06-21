@@ -44,7 +44,11 @@ public class MockScoreboard implements Scoreboard {
                                                  @Nullable Component displayName,
                                                  @NotNull RenderType renderType)
       throws IllegalArgumentException {
-    Objective objective = new MockObjective(name, criteria, displayName, renderType);
+    if (objectives.containsKey(name)) {
+      throw new IllegalArgumentException();
+    }
+
+    Objective objective = new MockObjective(name, criteria, displayName, renderType, objectives);
     objectives.put(name, objective);
     return objective;
   }

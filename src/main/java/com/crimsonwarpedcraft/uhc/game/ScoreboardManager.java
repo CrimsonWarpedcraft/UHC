@@ -33,7 +33,13 @@ public class ScoreboardManager {
 
     // Creates an objective on the player's scoreboard
     Scoreboard board = player.getScoreboard();
-    Objective objective = board.registerNewObjective("showhealth", "health", text,
+    Objective objective = board.getObjective("showhealth");
+
+    if (objective != null) {
+      objective.unregister();
+    }
+
+    objective = board.registerNewObjective("showhealth", "health", text,
         RenderType.HEARTS);
     objective.setDisplaySlot(DisplaySlot.PLAYER_LIST);
 
