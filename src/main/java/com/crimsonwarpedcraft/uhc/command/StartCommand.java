@@ -13,8 +13,8 @@ import com.crimsonwarpedcraft.uhc.game.GameState;
 import com.crimsonwarpedcraft.uhc.game.WorldConfig;
 import com.crimsonwarpedcraft.uhc.user.UhcUserStore;
 import com.crimsonwarpedcraft.uhc.util.UhcLogger;
-import java.util.Collection;
 import java.util.Objects;
+import java.util.Set;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Difficulty;
 import org.bukkit.command.CommandSender;
@@ -68,8 +68,9 @@ public class StartCommand extends BaseCommand {
           );
 
       //Lists all players, resets their stats & sends them a BEGIN message
-      Collection<? extends Player> onlinePlayers = game.getOnlinePlayers();
-      for (Player player : onlinePlayers) {
+      game.storeGamePlayers();
+      Set<Player> gamePlayers = game.getGamePlayers();
+      for (Player player : gamePlayers) {
         UhcUserStore
             .getInstance()
             .getUhcUser(player)
@@ -84,7 +85,7 @@ public class StartCommand extends BaseCommand {
             );
       }
 
-      // TODO save online players into whitelist, save old whitelist and replace it back on game end
+      // TODO add new join-preventer listener (prevent players outside whitelist from joining)
 
       LOGGER.log(UhcLogger.Level.INFO, "Game has started");
     // If game is already running, sends an error message

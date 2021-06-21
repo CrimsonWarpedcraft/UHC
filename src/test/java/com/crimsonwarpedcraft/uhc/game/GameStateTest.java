@@ -1,14 +1,16 @@
 package com.crimsonwarpedcraft.uhc.game;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.crimsonwarpedcraft.uhc.game.GameState;
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
 import com.crimsonwarpedcraft.uhc.mock.MockServer;
 import com.crimsonwarpedcraft.uhc.mock.MockWorld;
+import java.util.Set;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.junit.jupiter.api.Test;
@@ -83,5 +85,40 @@ class GameStateTest {
         ),
         world
     );
+  }
+
+  @Test
+  void storeGamePlayers() {
+    MockServer server = new MockServer();
+    server.addPlayer(new MockPlayer());
+    GameState game = GameState.newGameState(server);
+
+    // Check that the player was stored correctly
+    assertEquals(
+        1,
+        game
+            .storeGamePlayers()
+            .getGamePlayers()
+            .size()
+    );
+  }
+
+  @Test
+  void getGamePlayers() {
+    MockPlayer player = new MockPlayer();
+    MockServer server = new MockServer();
+    server.addPlayer(player);
+
+    GameState game = GameState.newGameState(server);
+
+    Set<Player> players = game
+        .storeGamePlayers()
+        .getGamePlayers();
+
+    // Check that the player was stored correctly
+    assertTrue(players.contains(player));
+
+    // Check that the lists returned are not the same
+    assertNotSame(players, game.getGamePlayers());
   }
 }

@@ -6,6 +6,7 @@ import com.crimsonwarpedcraft.uhc.game.GameConfig;
 import com.crimsonwarpedcraft.uhc.game.GameState;
 import com.crimsonwarpedcraft.uhc.game.RecipeManager;
 import com.crimsonwarpedcraft.uhc.listener.EndDisabler;
+import com.crimsonwarpedcraft.uhc.listener.JoinPreventer;
 import com.crimsonwarpedcraft.uhc.listener.ListenerRegister;
 import com.crimsonwarpedcraft.uhc.listener.RegenPreventer;
 import com.crimsonwarpedcraft.uhc.listener.ResurrectPreventer;
@@ -41,6 +42,7 @@ public class Uhc extends JavaPlugin {
     resetFactory(getLogger());
 
     GameConfig gameConfig = GameConfig.getNewGameConfig(getConfig());
+    GameState gameState = GameState.newGameState(getServer());
 
     // Try to overwrite config file
     // This lets us update the config file with default
@@ -70,10 +72,7 @@ public class Uhc extends JavaPlugin {
     CommandRegister
         .newCommandRegister(this)
         .register(
-            StartCommand.getStartCommand(
-                GameState.newGameState(getServer()),
-                gameConfig
-            )
+            StartCommand.getStartCommand(gameState, gameConfig)
         );
 
     // Used for registering event listeners with
@@ -81,6 +80,7 @@ public class Uhc extends JavaPlugin {
         .getListenerRegister(this)
         // Register event listeners
         .registerListener(EndDisabler.getEndDisabler())
+        .registerListener(JoinPreventer.getJoinPreventer(gameState))
         .registerListener(RegenPreventer.getRegenPreventer())
         .registerListener(ResurrectPreventer.getResurrectPreventer())
         .registerListener(ScoreboardCreator.getNewScoreboardCreator())

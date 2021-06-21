@@ -1,7 +1,9 @@
 package com.crimsonwarpedcraft.uhc.game;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -14,6 +16,7 @@ import org.bukkit.entity.Player;
 public class GameState {
   private boolean running;
   private final Server server;
+  private final HashSet<Player> gamePlayers;
 
   /** Returns a new GameState instance. */
   public static GameState newGameState(Server server) {
@@ -23,6 +26,7 @@ public class GameState {
   private GameState(Server server) {
     running = false;
     this.server = server;
+    gamePlayers = new HashSet<>();
   }
 
   /**
@@ -50,5 +54,16 @@ public class GameState {
   /** Returns a world by its name. */
   public World getWorld(String name) {
     return server.getWorld(Objects.requireNonNull(name));
+  }
+
+  /** Stores current online players to game players Set. */
+  public GameState storeGamePlayers() {
+    gamePlayers.addAll(getOnlinePlayers());
+    return this;
+  }
+
+  /** Returns copy of Set of game players. */
+  public Set<Player> getGamePlayers() {
+    return new HashSet<>(gamePlayers);
   }
 }

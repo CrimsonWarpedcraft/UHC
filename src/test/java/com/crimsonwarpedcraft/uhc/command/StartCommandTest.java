@@ -73,6 +73,10 @@ class StartCommandTest {
     // Check that the game is running
     assertTrue(game.isRunning());
 
+    // Make sure that players are added to game players
+    assertTrue(game.getGamePlayers().contains(player1));
+    assertTrue(game.getGamePlayers().contains(player2));
+
     // Make sure the player was sent a message
     Component message = player2.getLastMessage();
     assertNotNull(message);
