@@ -95,6 +95,7 @@ import org.jetbrains.annotations.Nullable;
 public class MockPlayer implements Player {
   private final AttributeInstance maxHealthAttribute;
   private final Map<String, Boolean> permissions = new HashMap<>();
+  private final PlayerInventory inventory = new MockPlayerInventory();
   private Component lastMessage;
   private double health;
   private float exhaustion;
@@ -1613,7 +1614,7 @@ public class MockPlayer implements Player {
 
   @Override
   public @NotNull PlayerInventory getInventory() {
-    return null;
+    return inventory;
   }
 
   @Override

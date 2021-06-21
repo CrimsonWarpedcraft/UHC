@@ -3,9 +3,11 @@ package com.crimsonwarpedcraft.uhc.user;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.crimsonwarpedcraft.uhc.mock.MockItemStack;
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
 import com.crimsonwarpedcraft.uhc.mock.MockScoreboard;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.scoreboard.Scoreboard;
@@ -119,5 +121,18 @@ class UhcPlayerTest {
             .getUhcUser(player)
             .getScoreboard()
     );
+  }
+
+  @Test
+  void resetInventory() {
+    MockPlayer player = new MockPlayer();
+    player.getInventory().addItem(new MockItemStack(Material.ACACIA_BOAT));
+
+    // Check that the player's inventory was cleared
+    UhcUserStore
+        .getInstance()
+        .getUhcUser(player)
+        .resetInventory();
+    assertEquals(0, player.getInventory().getSize());
   }
 }

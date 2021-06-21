@@ -78,6 +78,7 @@ public class StartCommand extends BaseCommand {
             .resetSaturation()
             .resetExhaustion()
             .resetExp()
+            .resetInventory()
             .sendMessage(
                 text("Game Has BEGUN!!", NamedTextColor.GREEN)
             );

@@ -68,6 +68,13 @@ public class UhcPlayer extends UhcUser {
     return this;
   }
 
+  /** Resets the player's inventory. */
+  public UhcPlayer resetInventory() {
+    player.getInventory().clear();
+
+    return this;
+  }
+
   /** Sends the player the player list header and footer. */
   public UhcPlayer sendPlayerListHeaderAndFooter(Component header, Component footer) {
     player.sendPlayerListHeaderAndFooter(header, footer);
