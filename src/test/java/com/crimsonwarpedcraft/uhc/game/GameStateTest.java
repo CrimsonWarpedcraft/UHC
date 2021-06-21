@@ -11,6 +11,7 @@ import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
 import com.crimsonwarpedcraft.uhc.mock.MockServer;
 import com.crimsonwarpedcraft.uhc.mock.MockWorld;
 import java.util.Set;
+import java.util.UUID;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.junit.jupiter.api.Test;
@@ -111,12 +112,12 @@ class GameStateTest {
 
     GameState game = GameState.newGameState(server);
 
-    Set<Player> players = game
+    Set<UUID> players = game
         .storeGamePlayers()
         .getGamePlayers();
 
     // Check that the player was stored correctly
-    assertTrue(players.contains(player));
+    assertTrue(players.contains(player.getUniqueId()));
 
     // Check that the lists returned are not the same
     assertNotSame(players, game.getGamePlayers());

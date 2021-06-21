@@ -96,6 +96,7 @@ public class MockPlayer implements Player {
   private final AttributeInstance maxHealthAttribute;
   private final Map<String, Boolean> permissions = new HashMap<>();
   private final PlayerInventory inventory = new MockPlayerInventory();
+  private final UUID uuid = UUID.randomUUID();
   private Component lastMessage;
   private double health;
   private float exhaustion;
@@ -489,7 +490,7 @@ public class MockPlayer implements Player {
 
   @Override
   public @NotNull UUID getUniqueId() {
-    return null;
+    return uuid;
   }
 
   @Override

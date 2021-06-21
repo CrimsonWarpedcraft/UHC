@@ -13,8 +13,8 @@ import com.crimsonwarpedcraft.uhc.game.GameState;
 import com.crimsonwarpedcraft.uhc.game.WorldConfig;
 import com.crimsonwarpedcraft.uhc.user.UhcUserStore;
 import com.crimsonwarpedcraft.uhc.util.UhcLogger;
+import java.util.Collection;
 import java.util.Objects;
-import java.util.Set;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Difficulty;
 import org.bukkit.command.CommandSender;
@@ -69,7 +69,7 @@ public class StartCommand extends BaseCommand {
 
       //Lists all players, resets their stats & sends them a BEGIN message
       game.storeGamePlayers();
-      Set<Player> gamePlayers = game.getGamePlayers();
+      Collection<? extends Player> gamePlayers = game.getOnlinePlayers();
       for (Player player : gamePlayers) {
         UhcUserStore
             .getInstance()

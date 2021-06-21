@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -16,7 +17,7 @@ import org.bukkit.entity.Player;
 public class GameState {
   private boolean running;
   private final Server server;
-  private final HashSet<Player> gamePlayers;
+  private final HashSet<UUID> gamePlayers;
 
   /** Returns a new GameState instance. */
   public static GameState newGameState(Server server) {
@@ -58,12 +59,15 @@ public class GameState {
 
   /** Stores current online players to game players Set. */
   public GameState storeGamePlayers() {
-    gamePlayers.addAll(getOnlinePlayers());
+    getOnlinePlayers().forEach(
+        player -> gamePlayers.add(player.getUniqueId())
+    );
+
     return this;
   }
 
-  /** Returns copy of Set of game players. */
-  public Set<Player> getGamePlayers() {
+  /** Returns copy of Set of game players' UUIDs. */
+  public Set<UUID> getGamePlayers() {
     return new HashSet<>(gamePlayers);
   }
 }
