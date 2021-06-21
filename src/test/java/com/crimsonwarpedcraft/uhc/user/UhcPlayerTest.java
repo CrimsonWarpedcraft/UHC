@@ -135,4 +135,17 @@ class UhcPlayerTest {
         .resetInventory();
     assertEquals(0, player.getInventory().getSize());
   }
+
+  @Test
+  void setGameMode() {
+    MockPlayer player = new MockPlayer();
+    player.setGameMode(org.bukkit.GameMode.ADVENTURE);
+
+    // Check that the player's gamemode was set
+    UhcUserStore
+        .getInstance()
+        .getUhcUser(player)
+        .setGameMode(GameMode.SURVIVAL);
+    assertEquals(org.bukkit.GameMode.SURVIVAL, player.getGameMode());
+  }
 }

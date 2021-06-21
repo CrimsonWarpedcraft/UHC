@@ -11,6 +11,7 @@ import com.crimsonwarpedcraft.uhc.Uhc;
 import com.crimsonwarpedcraft.uhc.game.GameConfig;
 import com.crimsonwarpedcraft.uhc.game.GameState;
 import com.crimsonwarpedcraft.uhc.game.WorldConfig;
+import com.crimsonwarpedcraft.uhc.user.GameMode;
 import com.crimsonwarpedcraft.uhc.user.UhcUserStore;
 import com.crimsonwarpedcraft.uhc.util.UhcLogger;
 import java.util.Collection;
@@ -80,6 +81,7 @@ public class StartCommand extends BaseCommand {
             .resetExhaustion()
             .resetExp()
             .resetInventory()
+            .setGameMode(GameMode.SURVIVAL)
             .sendMessage(
                 text("Game Has BEGUN!!", NamedTextColor.GREEN)
             );

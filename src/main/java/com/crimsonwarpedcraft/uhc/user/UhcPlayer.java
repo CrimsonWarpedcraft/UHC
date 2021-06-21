@@ -75,6 +75,13 @@ public class UhcPlayer extends UhcUser {
     return this;
   }
 
+  /** Sets the player's game mode. */
+  public UhcPlayer setGameMode(GameMode gameMode) {
+    player.setGameMode(gameMode.getGameMode());
+
+    return this;
+  }
+
   /** Sends the player the player list header and footer. */
   public UhcPlayer sendPlayerListHeaderAndFooter(Component header, Component footer) {
     player.sendPlayerListHeaderAndFooter(header, footer);

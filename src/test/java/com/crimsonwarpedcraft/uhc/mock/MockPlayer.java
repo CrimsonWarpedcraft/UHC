@@ -105,6 +105,7 @@ public class MockPlayer implements Player {
   private int foodLevel;
   private String headerText;
   private Scoreboard scoreboard;
+  private GameMode gameMode;
 
   /** Create a new MockPlayer object. */
   public MockPlayer() {
@@ -1775,12 +1776,12 @@ public class MockPlayer implements Player {
 
   @Override
   public @NotNull GameMode getGameMode() {
-    return null;
+    return gameMode;
   }
 
   @Override
   public void setGameMode(@NotNull GameMode mode) {
-
+    gameMode = mode;
   }
 
   @Override

@@ -15,6 +15,7 @@ import com.crimsonwarpedcraft.uhc.mock.MockWorld;
 import java.nio.file.Paths;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Difficulty;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
@@ -40,6 +41,7 @@ class StartCommandTest {
     player1.setExhaustion(5);
     player1.setSaturation(0);
     player1.setFoodLevel(5);
+    player1.setGameMode(GameMode.ADVENTURE);
     player1.getInventory().addItem(new MockItemStack(Material.ACACIA_BOAT));
     MockPlayer player2 = new MockPlayer();
 
@@ -98,6 +100,9 @@ class StartCommandTest {
 
     // Make sure players' saturation were reset
     assertNotEquals(10, player1.getSaturation());
+
+    // Make sure player's game modes were set
+    assertEquals(GameMode.SURVIVAL, player1.getGameMode());
 
     // Make sure players' inventories were reset
     assertEquals(0, player1.getInventory().getSize());
