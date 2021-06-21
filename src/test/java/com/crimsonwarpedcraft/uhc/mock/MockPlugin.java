@@ -13,7 +13,6 @@ import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginLoader;
-import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,8 +23,6 @@ import org.jetbrains.annotations.Nullable;
  */
 @SuppressFBWarnings("NP_NONNULL_RETURN_VIOLATION")
 public class MockPlugin implements Plugin {
-  private final PluginManager manager = new MockPluginManager();
-
   @Override
   public @NotNull File getDataFolder() {
     return null;
