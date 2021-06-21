@@ -82,6 +82,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -100,6 +101,8 @@ public class MockPlayer implements Player {
   private float experience;
   private float saturation;
   private int foodLevel;
+  private String headerText;
+  private Scoreboard scoreboard;
 
   /** Create a new MockPlayer object. */
   public MockPlayer() {
@@ -162,7 +165,7 @@ public class MockPlayer implements Player {
 
   @Override
   public @Nullable String getPlayerListHeader() {
-    return null;
+    return headerText;
   }
 
   @Override
@@ -1231,13 +1234,13 @@ public class MockPlayer implements Player {
 
   @Override
   public @NotNull Scoreboard getScoreboard() {
-    return null;
+    return scoreboard;
   }
 
   @Override
   public void setScoreboard(@NotNull Scoreboard scoreboard)
       throws IllegalArgumentException, IllegalStateException {
-
+    this.scoreboard = scoreboard;
   }
 
   @Override
@@ -2540,5 +2543,10 @@ public class MockPlayer implements Player {
   public <T extends Projectile> @NotNull T launchProjectile(@NotNull Class<? extends T> projectile,
                                                             @Nullable Vector velocity) {
     return null;
+  }
+
+  @Override
+  public void sendPlayerListHeaderAndFooter(@NonNull Component header, @NonNull Component footer) {
+    headerText = header.toString();
   }
 }

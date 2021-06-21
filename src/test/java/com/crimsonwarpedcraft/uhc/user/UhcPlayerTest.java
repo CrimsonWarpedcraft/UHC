@@ -4,8 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
+import com.crimsonwarpedcraft.uhc.mock.MockScoreboard;
+import net.kyori.adventure.text.Component;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.scoreboard.Scoreboard;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -88,5 +91,33 @@ class UhcPlayerTest {
         .resetExp();
 
     assertEquals(0, player.getExp());
+  }
+
+  @Test
+  void sendPlayerListHeaderAndFooter() {
+    MockPlayer player = new MockPlayer();
+
+    Component text = Component.text("test");
+    UhcUserStore
+        .getInstance()
+        .getUhcUser(player)
+        .sendPlayerListHeaderAndFooter(text, Component.empty());
+
+    assertEquals(text.toString(), player.getPlayerListHeader());
+  }
+
+  @Test
+  void getScoreboard() {
+    MockPlayer player = new MockPlayer();
+    Scoreboard scoreboard = new MockScoreboard();
+    player.setScoreboard(scoreboard);
+
+    assertEquals(
+        scoreboard,
+        UhcUserStore
+            .getInstance()
+            .getUhcUser(player)
+            .getScoreboard()
+    );
   }
 }

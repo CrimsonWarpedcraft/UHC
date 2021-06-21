@@ -9,6 +9,7 @@ import com.crimsonwarpedcraft.uhc.listener.EndDisabler;
 import com.crimsonwarpedcraft.uhc.listener.ListenerRegister;
 import com.crimsonwarpedcraft.uhc.listener.RegenPreventer;
 import com.crimsonwarpedcraft.uhc.listener.ResurrectPreventer;
+import com.crimsonwarpedcraft.uhc.listener.ScoreboardCreator;
 import com.crimsonwarpedcraft.uhc.listener.TradeDisabler;
 import com.crimsonwarpedcraft.uhc.listener.UhcUserStoreGarbageCollector;
 import com.crimsonwarpedcraft.uhc.listener.VillagerGuardian;
@@ -82,6 +83,7 @@ public class Uhc extends JavaPlugin {
         .registerListener(EndDisabler.getEndDisabler())
         .registerListener(RegenPreventer.getRegenPreventer())
         .registerListener(ResurrectPreventer.getResurrectPreventer())
+        .registerListener(ScoreboardCreator.getNewScoreboardCreator())
         .registerListener(TradeDisabler.getTradeDisabler())
         .registerListener(UhcUserStoreGarbageCollector.getUhcUserStoreGarbageCollector())
         .registerListener(VillagerGuardian.getVillagerGuardian());

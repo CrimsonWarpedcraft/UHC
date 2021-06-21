@@ -2,9 +2,11 @@ package com.crimsonwarpedcraft.uhc.user;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Objects;
+import net.kyori.adventure.text.Component;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Scoreboard;
 
 /**
  * Represents a UhcUser based on an online Player.
@@ -64,5 +66,17 @@ public class UhcPlayer extends UhcUser {
     player.setExp(0);
 
     return this;
+  }
+
+  /** Sends the player the player list header and footer. */
+  public UhcPlayer sendPlayerListHeaderAndFooter(Component header, Component footer) {
+    player.sendPlayerListHeaderAndFooter(header, footer);
+
+    return this;
+  }
+
+  /** Returns this player's scoreboard. */
+  public Scoreboard getScoreboard() {
+    return player.getScoreboard();
   }
 }
