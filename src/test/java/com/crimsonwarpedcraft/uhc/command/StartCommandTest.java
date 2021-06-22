@@ -37,7 +37,7 @@ class StartCommandTest {
     AttributeInstance attribute = player1.getAttribute(Attribute.GENERIC_MAX_HEALTH);
     assertNotNull(attribute);
     attribute.setBaseValue(2);
-    player1.setExp(10);
+    player1.setExp(.8f);
     player1.setExhaustion(5);
     player1.setSaturation(0);
     player1.setFoodLevel(5);
@@ -97,7 +97,8 @@ class StartCommandTest {
     assertNotEquals(5, player1.getFoodLevel());
 
     // Make sure players' experience were reset
-    assertNotEquals(10, player1.getExp());
+    assertEquals(0, player1.getExp());
+    assertEquals(0, player1.getLevel());
 
     // Make sure players' saturation were reset
     assertNotEquals(10, player1.getSaturation());

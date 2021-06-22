@@ -64,6 +64,7 @@ public class UhcPlayer extends UhcUser {
   /** Resets the player's experience to the default amount. */
   public UhcPlayer resetExp() {
     player.setExp(0);
+    player.setLevel(0);
 
     return this;
   }
