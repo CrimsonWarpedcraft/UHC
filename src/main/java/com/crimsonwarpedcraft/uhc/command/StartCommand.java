@@ -61,7 +61,6 @@ public class StartCommand extends BaseCommand {
           .getWorldConfig(game.getWorld(config.getMainWorldName()))
           .setDifficulty(Difficulty.HARD) //Sets difficulty to HARD
           .setTime(0)
-          // TODO prevent border from shrinking for an X amount of time
           .setBorderSize(config.getBorderStartSize()) //Creates World Border
           //Shrink world border
           .setBorderSize(
@@ -87,8 +86,6 @@ public class StartCommand extends BaseCommand {
                 text("Game Has BEGUN!!", NamedTextColor.GREEN)
             );
       }
-
-      // TODO add new join-preventer listener (prevent players outside whitelist from joining)
 
       LOGGER.log(UhcLogger.Level.INFO, "Game has started");
     // If game is already running, sends an error message
