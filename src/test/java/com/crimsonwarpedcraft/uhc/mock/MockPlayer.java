@@ -107,6 +107,7 @@ public class MockPlayer implements Player {
   private String headerText;
   private Scoreboard scoreboard;
   private GameMode gameMode;
+  private String name;
 
   /** Create a new MockPlayer object. */
   public MockPlayer() {
@@ -1613,7 +1614,11 @@ public class MockPlayer implements Player {
 
   @Override
   public @NotNull String getName() {
-    return null;
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   @Override

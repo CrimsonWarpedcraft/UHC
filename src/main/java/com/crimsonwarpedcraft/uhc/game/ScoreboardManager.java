@@ -35,15 +35,19 @@ public class ScoreboardManager {
     Scoreboard board = player.getScoreboard();
     Objective objective = board.getObjective("showhealth");
 
-    if (objective != null) {
-      objective.unregister();
+    if (objective == null) {
+      objective = board.registerNewObjective(
+          "showhealth",
+          "health",
+          text,
+          RenderType.HEARTS
+      );
+      objective.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+      objective
+          .getScore(player.getName())
+          .setScore((int) player.getHealth());
     }
 
-    objective = board.registerNewObjective("showhealth", "health", text,
-        RenderType.HEARTS);
-    objective.setDisplaySlot(DisplaySlot.PLAYER_LIST);
-
-    // Updates the scoreboard
     player.sendPlayerListHeaderAndFooter(Component.empty(), Component.empty());
 
     return this;

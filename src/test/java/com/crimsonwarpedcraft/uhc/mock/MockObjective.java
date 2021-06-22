@@ -1,6 +1,7 @@
 package com.crimsonwarpedcraft.uhc.mock;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.HashMap;
 import java.util.Map;
 import net.kyori.adventure.text.Component;
 import org.bukkit.OfflinePlayer;
@@ -24,6 +25,7 @@ public class MockObjective implements Objective {
   private final Component displayName;
   private final RenderType renderType;
   private final Map<String, Objective> objectives;
+  private final Map<String, Score> scores = new HashMap<>();
 
   /** Creates a new MockObjective instance with all required data. */
   public MockObjective(String name,
@@ -114,6 +116,8 @@ public class MockObjective implements Objective {
   @Override
   public @NotNull Score getScore(@NotNull String entry)
       throws IllegalArgumentException, IllegalStateException {
-    return null;
+    scores.putIfAbsent(entry, new MockScore());
+
+    return scores.get(entry);
   }
 }
