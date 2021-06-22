@@ -150,4 +150,30 @@ class UhcPlayerTest {
         .setGameMode(GameMode.SURVIVAL);
     assertEquals(org.bukkit.GameMode.SURVIVAL, player.getGameMode());
   }
+
+  @Test
+  void getName() {
+    MockPlayer player = new MockPlayer();
+    player.setName("player1");
+    assertEquals(
+        "player1",
+        UhcUserStore
+            .getInstance()
+            .getUhcUser(player)
+            .getName()
+    );
+  }
+
+  @Test
+  void getHealth() {
+    MockPlayer player = new MockPlayer();
+    player.setHealth(20);
+    assertEquals(
+        20,
+        UhcUserStore
+            .getInstance()
+            .getUhcUser(player)
+            .getHealth()
+    );
+  }
 }

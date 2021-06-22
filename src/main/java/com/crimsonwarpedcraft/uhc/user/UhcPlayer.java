@@ -94,4 +94,14 @@ public class UhcPlayer extends UhcUser {
   public Scoreboard getScoreboard() {
     return player.getScoreboard();
   }
+
+  /** Returns the player's name. */
+  public String getName() {
+    return player.getName();
+  }
+
+  /** Returns the player's current health. */
+  public double getHealth() {
+    return player.getHealth();
+  }
 }
