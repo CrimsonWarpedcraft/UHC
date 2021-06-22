@@ -60,6 +60,7 @@ public class StartCommand extends BaseCommand {
       WorldConfig
           .getWorldConfig(game.getWorld(config.getMainWorldName()))
           .setDifficulty(Difficulty.HARD) //Sets difficulty to HARD
+          .setTime(0)
           // TODO prevent border from shrinking for an X amount of time
           .setBorderSize(config.getBorderStartSize()) //Creates World Border
           //Shrink world border

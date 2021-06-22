@@ -68,6 +68,7 @@ public class MockWorld implements World {
   private final WorldBorder border = new MockWorldBorder();
   private String name = "world";
   private Difficulty difficulty = Difficulty.NORMAL;
+  private long time = 0;
 
   @Override
   public int getEntityCount() {
@@ -544,12 +545,12 @@ public class MockWorld implements World {
 
   @Override
   public long getFullTime() {
-    return 0;
+    return time;
   }
 
   @Override
   public void setFullTime(long time) {
-
+    this.time = time;
   }
 
   @Override

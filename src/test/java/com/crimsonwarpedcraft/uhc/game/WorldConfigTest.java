@@ -1,10 +1,8 @@
 package com.crimsonwarpedcraft.uhc.game;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.crimsonwarpedcraft.uhc.game.WorldConfig;
 import com.crimsonwarpedcraft.uhc.mock.MockWorld;
 import com.crimsonwarpedcraft.uhc.mock.MockWorldBorder;
 import org.bukkit.Difficulty;
@@ -80,5 +78,17 @@ class WorldConfigTest {
         () -> WorldConfig
             .getWorldConfig(null)
     );
+  }
+
+  @Test
+  void setTime() {
+    World world = new MockWorld();
+    world.setFullTime(1000);
+
+    // Check that the world time is properly set
+    WorldConfig
+        .getWorldConfig(world)
+        .setTime(0);
+    assertEquals(0, world.getFullTime());
   }
 }

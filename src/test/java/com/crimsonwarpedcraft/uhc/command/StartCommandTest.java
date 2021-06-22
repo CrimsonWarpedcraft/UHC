@@ -53,6 +53,7 @@ class StartCommandTest {
     world.setName("world1");
     world.getWorldBorder().setSize(5);
     world.setDifficulty(Difficulty.PEACEFUL);
+    world.setFullTime(1000);
     server.loadWorld(world);
 
     FileConfiguration configFile = new YamlConfiguration();
@@ -112,6 +113,9 @@ class StartCommandTest {
 
     // Make sure that the difficulty was set to hardcore
     assertEquals(Difficulty.HARD, world.getDifficulty());
+
+    // Make sure that the time was set to day
+    assertEquals(0, world.getFullTime());
 
     // Make sure border shrink after the configured seconds
     Thread.sleep((config.getBorderShrinkSeconds() + 1) * 1000);

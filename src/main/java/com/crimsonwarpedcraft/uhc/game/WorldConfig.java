@@ -29,6 +29,18 @@ public class WorldConfig {
   }
 
   /**
+   * Set time of world.
+   *
+   * @param time the new absolute time in ticks
+   * @return this instance that can be used for method chaining
+   */
+  public WorldConfig setTime(long time) {
+    world.setFullTime(time);
+
+    return this;
+  }
+
+  /**
    * Set the size of the world border.
    *
    * @param blocks the size of the border in blocks
