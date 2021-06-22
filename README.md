@@ -3,6 +3,23 @@ A simple UHC plugin!
 
 [![Build and Artifact](https://github.com/CrimsonWarpedcraft/UHC/actions/workflows/artifact.yml/badge.svg)](https://github.com/CrimsonWarpedcraft/UHC/actions/workflows/artifact.yml)
 
+## Features
+- Moving configurable world border
+- Reset world to first day
+- Disable player passive regeneration
+- Reset player stats and inventory
+- Player health displayed in player list
+- Disable totem of undying
+- Disable villager damage and trades
+- Removed suspicious stew recipe
+- Block new players from joining after a game has started
+
+## Commands
+`/uhc start` - Starts the game
+
+## Permissions
+`uhc.admin` - Allows players to use administrative commands (Default: op)
+
 ## Contributing
 ### General workflow
 1. First, pull any changes from `main` to make sure you're up-to-date
