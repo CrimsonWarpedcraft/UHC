@@ -88,20 +88,26 @@ class StartCommandTest {
     assertNotNull(player1.getLastMessage());
 
     // Make sure players' health were reset
-    assertNotEquals(10, player1.getHealth());
+    assertEquals(
+        attribute.getDefaultValue(),
+        player1.getHealth()
+    );
 
     // Make sure players' max health were reset
-    assertNotEquals(2, attribute.getBaseValue());
+    assertEquals(
+        attribute.getDefaultValue(),
+        attribute.getBaseValue()
+    );
 
     // Make sure players' food level were reset
-    assertNotEquals(5, player1.getFoodLevel());
+    assertEquals(20, player1.getFoodLevel());
 
     // Make sure players' experience were reset
     assertEquals(0, player1.getExp());
     assertEquals(0, player1.getLevel());
 
     // Make sure players' saturation were reset
-    assertNotEquals(10, player1.getSaturation());
+    assertEquals(5, player1.getSaturation());
 
     // Make sure player's game modes were set
     assertEquals(GameMode.SURVIVAL, player1.getGameMode());

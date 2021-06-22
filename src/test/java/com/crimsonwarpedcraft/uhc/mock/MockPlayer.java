@@ -100,7 +100,8 @@ public class MockPlayer implements Player {
   private Component lastMessage;
   private double health;
   private float exhaustion;
-  private float experience;
+  private float levelCompletePercent;
+  private int level;
   private float saturation;
   private int foodLevel;
   private String headerText;
@@ -113,7 +114,8 @@ public class MockPlayer implements Player {
     foodLevel = 20;
     saturation = 5;
     exhaustion = 0;
-    experience = 0;
+    level = 0;
+    levelCompletePercent = 0;
   }
 
   @Override
@@ -1112,22 +1114,22 @@ public class MockPlayer implements Player {
 
   @Override
   public float getExp() {
-    return experience;
+    return levelCompletePercent;
   }
 
   @Override
   public void setExp(float exp) {
-    experience = exp;
+    levelCompletePercent = exp;
   }
 
   @Override
   public int getLevel() {
-    return 0;
+    return level;
   }
 
   @Override
   public void setLevel(int level) {
-
+    this.level = level;
   }
 
   @Override

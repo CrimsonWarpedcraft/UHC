@@ -85,7 +85,8 @@ class UhcPlayerTest {
   @Test
   void resetExp() {
     MockPlayer player = new MockPlayer();
-    player.setExp(10);
+    player.setExp(.8f);
+    player.setLevel(5);
 
     UhcUserStore
         .getInstance()
@@ -93,6 +94,7 @@ class UhcPlayerTest {
         .resetExp();
 
     assertEquals(0, player.getExp());
+    assertEquals(0, player.getLevel());
   }
 
   @Test
