@@ -19,11 +19,6 @@ public class ListenerRegister {
     this.manager = plugin.getServer().getPluginManager();
   }
 
-  protected ListenerRegister(Plugin plugin, PluginManager manager) {
-    this.plugin = plugin;
-    this.manager = manager;
-  }
-
   /**
    * Registers an event listener with the server.
    *

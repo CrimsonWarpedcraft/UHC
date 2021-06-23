@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
 import com.crimsonwarpedcraft.uhc.mock.MockScoreboard;
-import com.crimsonwarpedcraft.uhc.mock.MockServer;
 import net.kyori.adventure.text.Component;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scoreboard.Objective;
@@ -25,8 +24,6 @@ class ScoreboardCreatorTest {
     player.setName("player1");
     player.setHealth(20);
     player.setScoreboard(scoreboard);
-    MockServer server = new MockServer();
-    server.addPlayer(player);
 
     PlayerJoinEvent event = new PlayerJoinEvent(player, Component.text(""));
 

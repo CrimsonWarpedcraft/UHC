@@ -23,6 +23,8 @@ import org.jetbrains.annotations.Nullable;
  */
 @SuppressFBWarnings("NP_NONNULL_RETURN_VIOLATION")
 public class MockPlugin implements Plugin {
+  private final Server server = new MockServer();
+
   @Override
   public @NotNull File getDataFolder() {
     return null;
@@ -70,7 +72,7 @@ public class MockPlugin implements Plugin {
 
   @Override
   public @NotNull Server getServer() {
-    return null;
+    return server;
   }
 
   @Override

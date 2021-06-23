@@ -18,8 +18,8 @@ class ListenerRegisterTest {
 
   @Test
   void registerListener() {
-    MockPluginManager manager = new MockPluginManager();
-    ListenerRegister register = new ListenerRegister(new MockPlugin(), manager);
+    MockPlugin plugin = new MockPlugin();
+    ListenerRegister register = ListenerRegister.getListenerRegister(plugin);
 
     // Check NPE
     assertThrows(NullPointerException.class, () -> register.registerListener(null));
@@ -29,7 +29,13 @@ class ListenerRegisterTest {
     register.registerListener(listener);
 
     // Check that the listener was registered successfully
-    assertTrue(manager.getListeners().contains(listener));
+    assertTrue(
+        ((MockPluginManager) plugin
+            .getServer()
+            .getPluginManager())
+            .getListeners()
+            .contains(listener)
+    );
   }
 
   @Test

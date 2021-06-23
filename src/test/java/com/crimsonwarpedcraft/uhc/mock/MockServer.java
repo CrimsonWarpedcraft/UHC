@@ -76,9 +76,10 @@ import org.jetbrains.annotations.Nullable;
  */
 @SuppressFBWarnings("NP_NONNULL_RETURN_VIOLATION")
 public class MockServer implements Server {
-  public HashSet<Player> players = new HashSet<>();
-  public HashMap<String, World> worlds = new HashMap<>();
-  public List<Recipe> recipes = new LinkedList<>();
+  private final HashSet<Player> players = new HashSet<>();
+  private final HashMap<String, World> worlds = new HashMap<>();
+  private final List<Recipe> recipes = new LinkedList<>();
+  private final PluginManager manager = new MockPluginManager();
 
   @Override
   public @NotNull String getName() {
@@ -251,7 +252,7 @@ public class MockServer implements Server {
 
   @Override
   public @NotNull PluginManager getPluginManager() {
-    return null;
+    return manager;
   }
 
   @Override
