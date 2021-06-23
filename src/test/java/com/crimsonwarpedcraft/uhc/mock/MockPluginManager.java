@@ -3,8 +3,8 @@ package com.crimsonwarpedcraft.uhc.mock;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -28,6 +28,15 @@ import org.jetbrains.annotations.Nullable;
 @SuppressFBWarnings("NP_NONNULL_RETURN_VIOLATION")
 public class MockPluginManager implements PluginManager {
   private final Set<Listener> listeners = new HashSet<>();
+  private Result result = Result.DEFAULT;
+  private Event event;
+
+  /** Represents possible outcomes for cancellable events. */
+  public enum Result {
+    TRUE,
+    FALSE,
+    DEFAULT
+  }
 
   @Override
   public void registerInterface(@NotNull Class<? extends PluginLoader> loader)
@@ -78,7 +87,19 @@ public class MockPluginManager implements PluginManager {
 
   @Override
   public void callEvent(@NotNull Event event) throws IllegalStateException {
+    this.event = event;
 
+    if (result != Result.DEFAULT && event instanceof Cancellable) {
+      ((Cancellable) event).setCancelled(result == Result.TRUE);
+    }
+  }
+
+  public Event getLastEvent() {
+    return event;
+  }
+
+  public void setCancellableResult(Result result) {
+    this.result = result;
   }
 
   @Override

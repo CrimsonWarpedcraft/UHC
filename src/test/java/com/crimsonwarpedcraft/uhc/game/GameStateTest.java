@@ -9,7 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
+import com.crimsonwarpedcraft.uhc.mock.MockPluginManager;
 import com.crimsonwarpedcraft.uhc.mock.MockServer;
+import com.crimsonwarpedcraft.uhc.mock.MockUhcEvent;
 import com.crimsonwarpedcraft.uhc.mock.MockWorld;
 import com.crimsonwarpedcraft.uhc.user.UhcPlayerData;
 import java.util.Map;
@@ -126,5 +128,22 @@ class GameStateTest {
 
     // Check that the lists returned are not the same
     assertNotSame(players, game.getGamePlayers());
+  }
+
+  @Test
+  void callEvent() {
+    MockServer server = new MockServer();
+    MockUhcEvent event = new MockUhcEvent();
+
+    // Check that the event is called properly
+    GameState
+        .newGameState(server)
+        .callEvent(event);
+    assertEquals(
+        event,
+        ((MockPluginManager) server
+            .getPluginManager())
+            .getLastEvent()
+    );
   }
 }

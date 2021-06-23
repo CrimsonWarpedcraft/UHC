@@ -1,6 +1,8 @@
 package com.crimsonwarpedcraft.uhc.listener;
 
+import com.crimsonwarpedcraft.uhc.event.UhcPlayerDeathEvent;
 import com.crimsonwarpedcraft.uhc.game.GameState;
+import com.crimsonwarpedcraft.uhc.user.UhcPlayer;
 import com.crimsonwarpedcraft.uhc.user.UhcUserStore;
 import java.util.Objects;
 import org.bukkit.event.EventHandler;
@@ -28,15 +30,22 @@ public class PlayerEliminator implements Listener {
   /** Listens for when players die. */
   @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
   public void onPlayerDeath(PlayerDeathEvent event) {
-    if (game.isRunning()) {
+    if (!game.isRunning()) {
+      return;
+    }
+
+    UhcPlayer player = UhcUserStore
+        .getInstance()
+        .getUhcUser(event.getEntity());
+
+    // Trigger our player death event
+    UhcPlayerDeathEvent uhcEvent = UhcPlayerDeathEvent.getNewUhcPlayerDeathEvent(player);
+    game.callEvent(uhcEvent);
+
+    if (!uhcEvent.isCancelled()) {
       game
           .getGamePlayers()
-          .get(
-              UhcUserStore
-                  .getInstance()
-                  .getUhcUser(event.getEntity())
-                  .getUuid()
-          )
+          .get(player.getUuid())
           .setAlive(false);
     }
   }

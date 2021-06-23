@@ -1,5 +1,6 @@
 package com.crimsonwarpedcraft.uhc.game;
 
+import com.crimsonwarpedcraft.uhc.event.UhcEvent;
 import com.crimsonwarpedcraft.uhc.user.UhcPlayerData;
 import java.util.Collection;
 import java.util.HashMap;
@@ -70,5 +71,12 @@ public class GameState {
   /** Returns copy of Set of game players' UUIDs. */
   public Map<UUID, UhcPlayerData> getGamePlayers() {
     return new HashMap<>(gamePlayers);
+  }
+
+  /** Calls the current event. */
+  public GameState callEvent(UhcEvent event) {
+    server.getPluginManager().callEvent(event);
+
+    return this;
   }
 }

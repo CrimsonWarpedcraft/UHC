@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.crimsonwarpedcraft.uhc.game.GameState;
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
+import com.crimsonwarpedcraft.uhc.mock.MockPluginManager;
 import com.crimsonwarpedcraft.uhc.mock.MockServer;
 import com.crimsonwarpedcraft.uhc.user.UhcPlayerData;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ class PlayerEliminatorTest {
     MockServer server = new MockServer();
     MockPlayer player = new MockPlayer();
     server.addPlayer(player);
+    MockPluginManager manager = ((MockPluginManager) server.getPluginManager());
 
     GameState gameState = GameState
         .newGameState(server)
@@ -52,11 +54,17 @@ class PlayerEliminatorTest {
 
     PlayerEliminator eliminator = PlayerEliminator.getNewPlayerEliminator(gameState);
 
-    // Check that the player is still considered alive when game is not running
+    // Check player is still considered alive when game is not running
     eliminator.onPlayerDeath(event);
     assertTrue(data.isAlive());
 
-    // Check that the player is considered dead when the game is running
+    // Check player is still considered alive when game is running and triggered event is cancelled
+    manager.setCancellableResult(MockPluginManager.Result.TRUE);
+    eliminator.onPlayerDeath(event);
+    assertTrue(data.isAlive());
+
+    // Check player is considered dead when the game is running
+    manager.setCancellableResult(MockPluginManager.Result.DEFAULT);
     gameState.setRunning(true);
     eliminator.onPlayerDeath(event);
     assertFalse(data.isAlive());
