@@ -26,7 +26,7 @@ public class PlayerEliminator implements Listener {
   }
 
   /** Listens for when players die. */
-  @EventHandler(priority = EventPriority.MONITOR)
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
   public void onPlayerDeath(PlayerDeathEvent event) {
     if (game.isRunning()) {
       game

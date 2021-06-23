@@ -24,7 +24,7 @@ public class ResurrectPreventer implements Listener {
   }
 
   /** Cancels EntityResurrectEvents from players. */
-  @EventHandler
+  @EventHandler(ignoreCancelled = true)
   public void onEntityResurrectEvent(EntityResurrectEvent event) {
     if (event.getEntity() instanceof Player) {
       event.setCancelled(true);
