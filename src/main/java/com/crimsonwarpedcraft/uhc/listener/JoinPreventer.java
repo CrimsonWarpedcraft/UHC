@@ -31,7 +31,7 @@ public class JoinPreventer implements Listener {
   @EventHandler
   public void onPlayerLogin(PlayerLoginEvent event) {
     if (game.isRunning()
-        && !game.getGamePlayers().contains(event.getPlayer().getUniqueId())) {
+        && !game.getGamePlayers().containsKey(event.getPlayer().getUniqueId())) {
       event.disallow(
           PlayerLoginEvent.Result.KICK_WHITELIST,
           Component.text("UHC game in progress, no new players allowed")

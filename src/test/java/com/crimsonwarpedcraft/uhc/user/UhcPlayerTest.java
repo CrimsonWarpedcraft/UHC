@@ -176,4 +176,17 @@ class UhcPlayerTest {
             .getHealth()
     );
   }
+
+  @Test
+  void getUuid() {
+    MockPlayer player = new MockPlayer();
+
+    assertEquals(
+        player.getUniqueId(),
+        UhcUserStore
+            .getInstance()
+            .getUhcUser(player)
+            .getUuid()
+    );
+  }
 }

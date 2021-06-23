@@ -2,6 +2,7 @@ package com.crimsonwarpedcraft.uhc.user;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Objects;
+import java.util.UUID;
 import net.kyori.adventure.text.Component;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
@@ -103,5 +104,10 @@ public class UhcPlayer extends UhcUser {
   /** Returns the player's current health. */
   public double getHealth() {
     return player.getHealth();
+  }
+
+  /** Returns the player's UUID. */
+  public UUID getUuid() {
+    return player.getUniqueId();
   }
 }

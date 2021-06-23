@@ -2,6 +2,7 @@ package com.crimsonwarpedcraft.uhc.game;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -10,7 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
 import com.crimsonwarpedcraft.uhc.mock.MockServer;
 import com.crimsonwarpedcraft.uhc.mock.MockWorld;
-import java.util.Set;
+import com.crimsonwarpedcraft.uhc.user.UhcPlayerData;
+import java.util.Map;
 import java.util.UUID;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -112,12 +114,15 @@ class GameStateTest {
 
     GameState game = GameState.newGameState(server);
 
-    Set<UUID> players = game
+    // Check that the player isn't already present in the map
+    assertFalse(game.getGamePlayers().containsKey(player.getUniqueId()));
+
+    Map<UUID, UhcPlayerData> players = game
         .storeGamePlayers()
         .getGamePlayers();
 
     // Check that the player was stored correctly
-    assertTrue(players.contains(player.getUniqueId()));
+    assertNotNull(players.get(player.getUniqueId()));
 
     // Check that the lists returned are not the same
     assertNotSame(players, game.getGamePlayers());

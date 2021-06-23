@@ -1,9 +1,10 @@
 package com.crimsonwarpedcraft.uhc.game;
 
+import com.crimsonwarpedcraft.uhc.user.UhcPlayerData;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -17,7 +18,7 @@ import org.bukkit.entity.Player;
 public class GameState {
   private boolean running;
   private final Server server;
-  private final HashSet<UUID> gamePlayers;
+  private final HashMap<UUID, UhcPlayerData> gamePlayers;
 
   /** Returns a new GameState instance. */
   public static GameState newGameState(Server server) {
@@ -27,7 +28,7 @@ public class GameState {
   private GameState(Server server) {
     running = false;
     this.server = server;
-    gamePlayers = new HashSet<>();
+    gamePlayers = new HashMap<>();
   }
 
   /**
@@ -60,14 +61,14 @@ public class GameState {
   /** Stores current online players to game players Set. */
   public GameState storeGamePlayers() {
     getOnlinePlayers().forEach(
-        player -> gamePlayers.add(player.getUniqueId())
+        player -> gamePlayers.put(player.getUniqueId(), UhcPlayerData.getNewUhcPlayerData())
     );
 
     return this;
   }
 
   /** Returns copy of Set of game players' UUIDs. */
-  public Set<UUID> getGamePlayers() {
-    return new HashSet<>(gamePlayers);
+  public Map<UUID, UhcPlayerData> getGamePlayers() {
+    return new HashMap<>(gamePlayers);
   }
 }
