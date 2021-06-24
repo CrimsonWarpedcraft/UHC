@@ -112,7 +112,7 @@ class GameConfigTest {
     // Make sure we get the expected default value
     assertEquals(
         500,
-        config.getBorderShrinkSize()
+        config.getBorderFinalSize()
     );
 
     // Load config from file
@@ -125,7 +125,7 @@ class GameConfigTest {
     // Make sure we get the expected loaded value
     assertEquals(
         50,
-        config.getBorderShrinkSize()
+        config.getBorderFinalSize()
     );
   }
 

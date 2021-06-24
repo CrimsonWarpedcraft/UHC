@@ -15,8 +15,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 public class GameConfig {
   private static final String WORLD_MAIN_WORLD_NAME = "world.main-world-name";
   private static final String WORLD_BORDER_START_SIZE = "world.border-start-size";
-  private static final String WORLD_BORDER_SHRINK_SECONDS = "world.border-shrink-seconds";
-  private static final String WORLD_BORDER_SHRINK_SIZE = "world.border-shrink-size";
+  private static final String WORLD_BORDER_SHRINK_RATE = "border-shrink-rate(blocks/second)";
+  private static final String WORLD_BORDER_FINAL_SIZE = "world.border-final-size(2-players)";
   private final FileConfiguration config;
 
   /**
@@ -46,14 +46,14 @@ public class GameConfig {
     return config.getDouble(WORLD_BORDER_START_SIZE);
   }
 
-  /** Returns the number of seconds that the border should shrink for. */
-  public long getBorderShrinkSeconds() {
-    return config.getLong(WORLD_BORDER_SHRINK_SECONDS);
+  /** Returns the rate (in blocks/seconds) at which the border should shrink. */
+  public long getBorderShrinkRate() {
+    return config.getLong(WORLD_BORDER_SHRINK_RATE);
   }
 
   /** Returns the size that the border should shrink to. */
-  public double getBorderShrinkSize() {
-    return config.getDouble(WORLD_BORDER_SHRINK_SIZE);
+  public double getBorderFinalSize() {
+    return config.getDouble(WORLD_BORDER_FINAL_SIZE);
   }
 
   /**
@@ -75,8 +75,8 @@ public class GameConfig {
     // World settings
     defaults.set(WORLD_MAIN_WORLD_NAME, "world");
     defaults.set(WORLD_BORDER_START_SIZE, 1000D);
-    defaults.set(WORLD_BORDER_SHRINK_SECONDS, 10800L);
-    defaults.set(WORLD_BORDER_SHRINK_SIZE, 500D);
+    defaults.set(WORLD_BORDER_SHRINK_RATE, 10800L);
+    defaults.set(WORLD_BORDER_FINAL_SIZE, 500D);
 
     config.setDefaults(defaults);
   }

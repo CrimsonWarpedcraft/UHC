@@ -61,12 +61,7 @@ public class StartCommand extends BaseCommand {
           .getWorldConfig(game.getWorld(config.getMainWorldName()))
           .setDifficulty(Difficulty.HARD) //Sets difficulty to HARD
           .setTime(0)
-          .setBorderSize(config.getBorderStartSize()) //Creates World Border
-          //Shrink world border
-          .setBorderSize(
-              config.getBorderShrinkSize(),
-              config.getBorderShrinkSeconds()
-          );
+          .setBorderSize(config.getBorderStartSize()); //Creates World Border
 
       //Lists all players, resets their stats & sends them a BEGIN message
       game.storeGamePlayers();
