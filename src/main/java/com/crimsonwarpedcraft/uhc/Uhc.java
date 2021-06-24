@@ -5,6 +5,7 @@ import com.crimsonwarpedcraft.uhc.command.StartCommand;
 import com.crimsonwarpedcraft.uhc.game.GameConfig;
 import com.crimsonwarpedcraft.uhc.game.GameState;
 import com.crimsonwarpedcraft.uhc.game.RecipeManager;
+import com.crimsonwarpedcraft.uhc.listener.BorderShrinker;
 import com.crimsonwarpedcraft.uhc.listener.EndDisabler;
 import com.crimsonwarpedcraft.uhc.listener.JoinPreventer;
 import com.crimsonwarpedcraft.uhc.listener.ListenerRegister;
@@ -79,6 +80,7 @@ public class Uhc extends JavaPlugin {
     ListenerRegister
         .getListenerRegister(this)
         // Register event listeners
+        .registerListener(BorderShrinker.getBorderShrinker(gameState, gameConfig))
         .registerListener(EndDisabler.getEndDisabler())
         .registerListener(JoinPreventer.getJoinPreventer(gameState))
         .registerListener(RegenPreventer.getRegenPreventer())
