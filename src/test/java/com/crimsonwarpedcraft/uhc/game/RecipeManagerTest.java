@@ -34,10 +34,7 @@ class RecipeManagerTest {
         NullPointerException.class,
         () -> RecipeManager.getNewRecipeManager(new MockServer()).filter(null)
     );
-  }
 
-  @Test
-  void apply() {
     MockServer server = new MockServer();
     Recipe recipe1 = new MockRecipe(
         new MockItemStack(Material.ACACIA_BOAT)
@@ -50,11 +47,6 @@ class RecipeManagerTest {
 
     RecipeManager manager = RecipeManager
         .getNewRecipeManager(server);
-
-    manager.apply();
-
-    // Make sure the recipe hasn't been removed yet
-    assertTrue(server.hasRecipe(recipe1));
 
     // Filter recipe1 out
     manager
@@ -82,5 +74,74 @@ class RecipeManagerTest {
 
     // Make sure recipe2 was removed
     assertFalse(server.hasRecipe(recipe2));
+  }
+
+  @Test
+  void apply() {
+    MockServer server = new MockServer();
+    Recipe recipe1 = new MockRecipe(
+        new MockItemStack(Material.ACACIA_BOAT)
+    );
+    server.addRecipe(recipe1);
+
+    RecipeManager manager = RecipeManager
+        .getNewRecipeManager(server);
+    manager.apply();
+
+    // Make sure the recipe hasn't been removed yet
+    assertTrue(server.hasRecipe(recipe1));
+
+    Recipe recipe2 = new MockRecipe(
+        new MockItemStack(Material.ACACIA_BUTTON)
+    );
+
+    manager
+        .filter(
+            serverRecipe -> !serverRecipe.getResult().isSimilar(
+                new MockItemStack(Material.ACACIA_BOAT)
+            )
+        )
+        .filter(
+            serverRecipe -> !serverRecipe.getResult().isSimilar(
+                new MockItemStack(Material.ACACIA_BUTTON)
+            )
+        )
+        .addRecipe(recipe2);
+
+    // Make sure the recipe hasn't been removed yet
+    assertTrue(server.hasRecipe(recipe1));
+
+    // Make sure the recipe hasn't been added yet
+    assertFalse(server.hasRecipe(recipe2));
+
+    manager.apply();
+
+    // Make sure the recipe was removed
+    assertFalse(server.hasRecipe(recipe1));
+
+    // Make sure the recipe hasn't been removed
+    assertTrue(server.hasRecipe(recipe2));
+  }
+
+  @Test
+  void addRecipe() {
+    // Check NPE
+    assertThrows(
+        NullPointerException.class,
+        () -> RecipeManager.getNewRecipeManager(new MockServer()).addRecipe(null)
+    );
+
+    MockServer server = new MockServer();
+    Recipe recipe1 = new MockRecipe(
+        new MockItemStack(Material.ACACIA_BOAT)
+    );
+
+    RecipeManager
+        .getNewRecipeManager(server)
+        .addRecipe(recipe1)
+        .apply();
+
+    // Make sure the recipe has been added
+    assertTrue(server.hasRecipe(recipe1));
   }
 }
