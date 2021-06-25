@@ -1,11 +1,16 @@
 package com.crimsonwarpedcraft.uhc.listener;
 
+import static net.kyori.adventure.text.Component.text;
+
 import com.crimsonwarpedcraft.uhc.event.UhcPlayerDeathEvent;
 import com.crimsonwarpedcraft.uhc.game.GameConfig;
 import com.crimsonwarpedcraft.uhc.game.GameState;
 import com.crimsonwarpedcraft.uhc.game.WorldConfig;
+import com.crimsonwarpedcraft.uhc.user.UhcUserStore;
 import java.lang.Math;
+import java.util.Collection;
 import java.util.Objects;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -66,7 +71,16 @@ public class BorderShrinker implements Listener {
             position,
             moveTime(position)
         );
-    //TODO send message to players
 
+    //Sends message to all online players
+    Collection<? extends Player> onlinePlayers = game.getOnlinePlayers();
+    for (Player player : onlinePlayers) {
+      UhcUserStore
+          .getInstance()
+          .getUhcUser(player)
+          .sendMessage(
+              text("Border size changing to " + position + " blocks")
+          );
+    }
   }
 }
