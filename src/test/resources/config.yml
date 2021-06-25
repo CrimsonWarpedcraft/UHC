@@ -1,5 +1,5 @@
 world:
   main-world-name: world1
   border-start-size: 100
-  border-shrink-blocks-per-sec: 5
+  border-shrink-blocks-per-sec: 1
   border-final-size: 50

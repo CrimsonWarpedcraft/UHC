@@ -47,8 +47,8 @@ public class GameConfig {
   }
 
   /** Returns the rate (in blocks/seconds) at which the border should shrink. */
-  public long getBorderShrinkRate() {
-    return config.getLong(WORLD_BORDER_SHRINK_RATE);
+  public double getBorderShrinkRate() {
+    return config.getDouble(WORLD_BORDER_SHRINK_RATE);
   }
 
   /** Returns the size that the border should shrink to. */
@@ -75,7 +75,7 @@ public class GameConfig {
     // World settings
     defaults.set(WORLD_MAIN_WORLD_NAME, "world");
     defaults.set(WORLD_BORDER_START_SIZE, 1000D);
-    defaults.set(WORLD_BORDER_SHRINK_RATE, 10800L);
+    defaults.set(WORLD_BORDER_SHRINK_RATE, .3);
     defaults.set(WORLD_BORDER_FINAL_SIZE, 500D);
 
     config.setDefaults(defaults);

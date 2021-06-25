@@ -86,7 +86,7 @@ class GameConfigTest {
 
     // Make sure we get the expected default value
     assertEquals(
-        10800,
+        .3,
         config.getBorderShrinkRate()
     );
 
@@ -99,7 +99,7 @@ class GameConfigTest {
 
     // Make sure we get the expected loaded value
     assertEquals(
-        5,
+        1,
         config.getBorderShrinkRate()
     );
   }
