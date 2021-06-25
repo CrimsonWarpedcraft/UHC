@@ -66,6 +66,15 @@ public class WorldConfig {
   }
 
   /**
+   * Returns current border size.
+   *
+   * @return Size of the border in blocks
+   */
+  public double getBorderSize() {
+    return world.getWorldBorder().getSize();
+  }
+
+  /**
    * Get a new WorldConfig instance to modify the properties of a world.
    *
    * @param world the world to modify the properties of

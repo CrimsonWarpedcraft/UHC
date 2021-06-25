@@ -124,11 +124,6 @@ class StartCommandTest {
     // Make sure that the time was set to day
     assertEquals(0, world.getFullTime());
 
-    // Make sure border shrink after the configured seconds
-    Thread.sleep((config.getBorderShrinkSeconds() + 1) * 1000);
-
-    assertEquals(config.getBorderShrinkSize(), world.getWorldBorder().getSize());
-
     // Run the start command again
     start.onStart(player2);
 

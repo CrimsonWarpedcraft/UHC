@@ -4,12 +4,15 @@ import com.crimsonwarpedcraft.uhc.event.UhcEvent;
 import com.crimsonwarpedcraft.uhc.user.UhcPlayerData;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+
 
 /**
  * Stores information about the state of the game.
@@ -72,6 +75,22 @@ public class GameState {
   public Map<UUID, UhcPlayerData> getGamePlayers() {
     return new HashMap<>(gamePlayers);
   }
+
+  /** Returns a Set of alive player's UUID's. */
+  public Set<UUID> getAlivePlayers() {
+    Set<UUID> gamePlayersSet = gamePlayers.keySet();
+    Set<UUID> alivePlayers = new HashSet<>();
+
+    for (UUID player : gamePlayersSet) {
+      UhcPlayerData data = getGamePlayers().get(player);
+      if (data.isAlive()) {
+        alivePlayers.add(player);
+      }
+    }
+
+    return alivePlayers;
+  }
+
 
   /** Calls the current event. */
   public GameState callEvent(UhcEvent event) {

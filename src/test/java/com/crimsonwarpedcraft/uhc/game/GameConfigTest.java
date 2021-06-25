@@ -80,14 +80,14 @@ class GameConfigTest {
   }
 
   @Test
-  void getBorderShrinkSeconds() {
+  void getBorderShrinkRate() {
     YamlConfiguration fileConfig = new YamlConfiguration();
     GameConfig config = GameConfig.getNewGameConfig(fileConfig);
 
     // Make sure we get the expected default value
     assertEquals(
-        10800,
-        config.getBorderShrinkSeconds()
+        .3,
+        config.getBorderShrinkRate()
     );
 
     // Load config from file
@@ -99,20 +99,20 @@ class GameConfigTest {
 
     // Make sure we get the expected loaded value
     assertEquals(
-        5,
-        config.getBorderShrinkSeconds()
+        1,
+        config.getBorderShrinkRate()
     );
   }
 
   @Test
-  void getBorderShrinkSize() {
+  void getBorderFinalSize() {
     YamlConfiguration fileConfig = new YamlConfiguration();
     GameConfig config = GameConfig.getNewGameConfig(fileConfig);
 
     // Make sure we get the expected default value
     assertEquals(
         500,
-        config.getBorderShrinkSize()
+        config.getBorderFinalSize()
     );
 
     // Load config from file
@@ -125,7 +125,7 @@ class GameConfigTest {
     // Make sure we get the expected loaded value
     assertEquals(
         50,
-        config.getBorderShrinkSize()
+        config.getBorderFinalSize()
     );
   }
 
