@@ -2,6 +2,7 @@ package com.crimsonwarpedcraft.uhc.listener;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.crimsonwarpedcraft.uhc.event.UhcPlayerDeathEvent;
@@ -95,5 +96,10 @@ class BorderShrinkerTest {
     shrinker.onUhcPlayerDeath(event);
     assertEquals(50, world.getWorldBorder().getSize());
     assertEquals(50, ((MockWorldBorder) world.getWorldBorder()).getResizeDuration());
+
+    // Check that players are sent a message about the new border size
+    assertNotNull(player1.getLastMessage());
+    assertNotNull(player2.getLastMessage());
+    assertNotNull(player3.getLastMessage());
   }
 }
