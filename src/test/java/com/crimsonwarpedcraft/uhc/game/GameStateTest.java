@@ -146,4 +146,25 @@ class GameStateTest {
             .getLastEvent()
     );
   }
+
+  @Test
+  void getAlivePlayers() {
+    MockServer server = new MockServer();
+    MockPlayer player1 = new MockPlayer();
+    MockPlayer player2 = new MockPlayer();
+    server.addPlayer(player1);
+    server.addPlayer(player2);
+    GameState gameState = GameState
+        .newGameState(server)
+        .storeGamePlayers();
+
+    // Check that both players are alive by default
+    assertTrue(gameState.getAlivePlayers().contains(player1.getUniqueId()));
+    assertTrue(gameState.getAlivePlayers().contains(player2.getUniqueId()));
+
+    // Check that only player 2 is alive
+    gameState.getGamePlayers().get(player1.getUniqueId()).setAlive(false);
+    assertFalse(gameState.getAlivePlayers().contains(player1.getUniqueId()));
+    assertTrue(gameState.getAlivePlayers().contains(player2.getUniqueId()));
+  }
 }
