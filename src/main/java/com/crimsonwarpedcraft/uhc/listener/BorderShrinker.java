@@ -28,26 +28,25 @@ public class BorderShrinker implements Listener {
   }
 
   // Returns expected border size given the # of players alive
-  private double borderPos(long aliveCount) {
-    double deathShrink = (
-        config.getBorderStartSize() - config.getBorderFinalSize()
-    )
-        / (
-            game.getGamePlayers().size() - 2
-    );
-    return config.getBorderFinalSize() + ((aliveCount - 2) * deathShrink);
+  private double borderPos() {
+    double borderSizeDelta = config.getBorderStartSize() - config.getBorderFinalSize();
+    double deathShrink = borderSizeDelta / (game.getGamePlayers().size() - 2);
+    int aliveCount = game.getAlivePlayers().size();
+    return config.getBorderFinalSize() + (aliveCount - 2) * deathShrink;
   }
 
   // Returns the necessary time for the border to shrink at a constant rate
-  private long moveTime(double position, double shrinkRate) {
-    return Math.round(
-        Math.abs(
-            WorldConfig
-                .getWorldConfig(game.getWorld(config.getMainWorldName()))
-                .getBorderSize()
-                - position
+  private long moveTime(double position) {
+    double borderSize = WorldConfig
+        .getWorldConfig(
+            game.getWorld(
+                config.getMainWorldName()
+            )
         )
-            / shrinkRate
+        .getBorderSize();
+
+    return Math.round(
+        Math.abs(borderSize - position) / config.getBorderShrinkRate()
     );
   }
 
@@ -55,17 +54,13 @@ public class BorderShrinker implements Listener {
   @EventHandler
   public void onUhcPlayerDeath(UhcPlayerDeathEvent event) {
 
-    int aliveCount = game.getAlivePlayers().size();
-    if (aliveCount > 2) {
+    if (game.getAlivePlayers().size() > 2) {
 
       WorldConfig
           .getWorldConfig(game.getWorld(config.getMainWorldName()))
           .setBorderSize(
-              borderPos(aliveCount),
-              moveTime(
-                  borderPos(aliveCount),
-                  config.getBorderShrinkRate()
-              )
+              borderPos(),
+              moveTime(borderPos())
           );
     }
   }
