@@ -31,8 +31,8 @@ public class BorderShrinker implements Listener {
   private double borderPos() {
     double borderSizeDelta = config.getBorderStartSize() - config.getBorderFinalSize();
     double deathShrink = borderSizeDelta / (game.getGamePlayers().size() - 2);
-    int aliveCount = game.getAlivePlayers().size();
-    return config.getBorderFinalSize() + (aliveCount - 2) * deathShrink;
+    int aliveCount = game.getAlivePlayers().size() - 3;
+    return config.getBorderFinalSize() + aliveCount * deathShrink;
   }
 
   // Returns the necessary time for the border to shrink at a constant rate
@@ -54,13 +54,14 @@ public class BorderShrinker implements Listener {
   @EventHandler
   public void onUhcPlayerDeath(UhcPlayerDeathEvent event) {
 
-    if (game.getAlivePlayers().size() > 2) {
+    if (game.getAlivePlayers().size() - 1 > 2) {
+      double position = borderPos();
 
       WorldConfig
           .getWorldConfig(game.getWorld(config.getMainWorldName()))
           .setBorderSize(
-              borderPos(),
-              moveTime(borderPos())
+              position,
+              moveTime(position)
           );
     }
   }
