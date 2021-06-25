@@ -76,12 +76,12 @@ public class GameState {
     return new HashMap<>(gamePlayers);
   }
 
-  /** Returns a St of alive player's UUID's */
+  /** Returns a Set of alive player's UUID's. */
   public Set getAlivePlayers() {
     Set<UUID> gamePlayersSet = gamePlayers.keySet();
     Set<UUID> alivePlayers = new HashSet<>();
 
-    for (UUID player:gamePlayersSet) {
+    for (UUID player : gamePlayersSet) {
       UhcPlayerData data = getGamePlayers().get(player);
       if (data.isAlive()) {
         alivePlayers.add(player);

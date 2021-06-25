@@ -4,9 +4,9 @@ import com.crimsonwarpedcraft.uhc.event.UhcPlayerDeathEvent;
 import com.crimsonwarpedcraft.uhc.game.GameConfig;
 import com.crimsonwarpedcraft.uhc.game.GameState;
 import com.crimsonwarpedcraft.uhc.game.WorldConfig;
+import java.lang.Math;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import java.lang.Math;
 
 /**
  * Shrinks world border after a player dies.
