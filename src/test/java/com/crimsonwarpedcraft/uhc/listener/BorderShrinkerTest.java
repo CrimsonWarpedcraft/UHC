@@ -52,6 +52,7 @@ class BorderShrinkerTest {
     MockPlayer player1 = new MockPlayer();
     MockPlayer player2 = new MockPlayer();
     MockWorld world = new MockWorld();
+    world.setName("world1");
     MockServer server = new MockServer();
     server.addPlayer(player1);
     server.addPlayer(player2);

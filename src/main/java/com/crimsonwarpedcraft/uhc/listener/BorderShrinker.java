@@ -5,6 +5,7 @@ import com.crimsonwarpedcraft.uhc.game.GameConfig;
 import com.crimsonwarpedcraft.uhc.game.GameState;
 import com.crimsonwarpedcraft.uhc.game.WorldConfig;
 import java.lang.Math;
+import java.util.Objects;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -19,7 +20,7 @@ public class BorderShrinker implements Listener {
 
   /** Returns a new instance of a BorderShrinker. */
   public static BorderShrinker getBorderShrinker(GameState game, GameConfig config) {
-    return new BorderShrinker(game, config);
+    return new BorderShrinker(Objects.requireNonNull(game), Objects.requireNonNull(config));
   }
 
   private BorderShrinker(GameState game, GameConfig config) {
@@ -54,15 +55,18 @@ public class BorderShrinker implements Listener {
   @EventHandler
   public void onUhcPlayerDeath(UhcPlayerDeathEvent event) {
 
-    if (game.getAlivePlayers().size() - 1 > 2) {
-      double position = borderPos();
-
-      WorldConfig
-          .getWorldConfig(game.getWorld(config.getMainWorldName()))
-          .setBorderSize(
-              position,
-              moveTime(position)
-          );
+    if (!game.isRunning() || game.getAlivePlayers().size() - 1 < 2) {
+      return;
     }
+
+    double position = borderPos();
+    WorldConfig
+        .getWorldConfig(game.getWorld(config.getMainWorldName()))
+        .setBorderSize(
+            position,
+            moveTime(position)
+        );
+    //TODO send message to players
+
   }
 }

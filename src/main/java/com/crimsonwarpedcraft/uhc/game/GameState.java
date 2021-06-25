@@ -77,7 +77,7 @@ public class GameState {
   }
 
   /** Returns a Set of alive player's UUID's. */
-  public Set getAlivePlayers() {
+  public Set<UUID> getAlivePlayers() {
     Set<UUID> gamePlayersSet = gamePlayers.keySet();
     Set<UUID> alivePlayers = new HashSet<>();
 
