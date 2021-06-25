@@ -15,8 +15,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 public class GameConfig {
   private static final String WORLD_MAIN_WORLD_NAME = "world.main-world-name";
   private static final String WORLD_BORDER_START_SIZE = "world.border-start-size";
-  private static final String WORLD_BORDER_SHRINK_RATE = "border-shrink-rate(blocks/second)";
-  private static final String WORLD_BORDER_FINAL_SIZE = "world.border-final-size(2-players)";
+  private static final String WORLD_BORDER_SHRINK_RATE = "world.border-shrink-blocks-per-sec";
+  private static final String WORLD_BORDER_FINAL_SIZE = "world.border-final-size";
   private final FileConfiguration config;
 
   /**
