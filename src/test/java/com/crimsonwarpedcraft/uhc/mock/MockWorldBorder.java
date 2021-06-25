@@ -1,9 +1,6 @@
 package com.crimsonwarpedcraft.uhc.mock;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import org.bukkit.Location;
 import org.bukkit.WorldBorder;
 import org.jetbrains.annotations.NotNull;
@@ -16,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 @SuppressFBWarnings("NP_NONNULL_RETURN_VIOLATION")
 public class MockWorldBorder implements WorldBorder {
   private volatile double size = 0;
-  private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+  private long resizeDuration = 0;
 
   @Override
   public void reset() {
@@ -35,9 +32,8 @@ public class MockWorldBorder implements WorldBorder {
 
   @Override
   public void setSize(double newSize, long seconds) {
-    Runnable task = () -> size = newSize;
-
-    executor.schedule(task, seconds, TimeUnit.SECONDS);
+    size = newSize;
+    resizeDuration = seconds;
   }
 
   @Override
@@ -100,7 +96,7 @@ public class MockWorldBorder implements WorldBorder {
     return false;
   }
 
-  public void shutdownTasks() {
-    executor.shutdown();
+  public long getResizeDuration() {
+    return resizeDuration;
   }
 }

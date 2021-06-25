@@ -47,7 +47,7 @@ class WorldConfigTest {
   }
 
   @Test
-  void setBorderSize() throws InterruptedException {
+  void setBorderSize() {
     World world = new MockWorld();
     MockWorldBorder border = (MockWorldBorder) world.getWorldBorder();
 
@@ -61,13 +61,7 @@ class WorldConfigTest {
         .getWorldConfig(world)
         .setBorderSize(200, 1);
 
-    assertEquals(100, border.getSize());
-
-    Thread.sleep(3000);
-
     assertEquals(200, border.getSize());
-
-    border.shutdownTasks();
   }
 
   @Test
