@@ -7,11 +7,11 @@ import com.crimsonwarpedcraft.uhc.game.GameConfig;
 import com.crimsonwarpedcraft.uhc.game.GameState;
 import com.crimsonwarpedcraft.uhc.game.WorldConfig;
 import com.crimsonwarpedcraft.uhc.user.UhcUserStore;
-import java.lang.Math;
 import java.util.Collection;
 import java.util.Objects;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 /**
@@ -57,7 +57,7 @@ public class BorderShrinker implements Listener {
   }
 
   /** Shrinks world border at a constant rate when a Uhc player dies. */
-  @EventHandler
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
   public void onUhcPlayerDeath(UhcPlayerDeathEvent event) {
 
     if (!game.isRunning() || game.getAlivePlayers().size() - 1 < 2) {
