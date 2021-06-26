@@ -9,6 +9,9 @@ on:
     branches:
       - 'main'
 
+  schedule:
+    - cron:  '0 0 * * 6'
+
   workflow_dispatch:
 
 jobs:
@@ -46,8 +49,16 @@ jobs:
           name: Compiled Jar(s)
           path: ${{ github.workspace }}/build/libs/
 
+  notify:
+    needs: artifact
+    runs-on: ubuntu-latest
+    env:
+      DISCORD_WEBHOOK_ID: ${{ secrets.DISCORD_WEBHOOK_ID }}
+      DISCORD_WEBHOOK_TOKEN: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+    if: ${{ always() }}
+    steps:
       - name: Notify on success
-        if: ${{ success() && runner.os != 'Windows' }}
+        if: ${{ env.DISCORD_WEBHOOK_ID != null && env.DISCORD_WEBHOOK_TOKEN != null && needs.artifact.result == 'success' }}
         uses: appleboy/discord-action@0.0.3
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
@@ -57,9 +68,8 @@ jobs:
           message: >
             ${{ github.repository }} build ${{ github.run_number }} successfully completed:
             https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-
       - name: Notify on failure
-        if: ${{ failure() && runner.os != 'Windows' }}
+        if: ${{ env.DISCORD_WEBHOOK_ID != null && env.DISCORD_WEBHOOK_TOKEN != null && needs.artifact.result == 'failure' }}
         uses: appleboy/discord-action@0.0.3
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
