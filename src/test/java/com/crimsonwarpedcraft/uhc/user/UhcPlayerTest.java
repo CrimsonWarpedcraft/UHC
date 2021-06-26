@@ -1,6 +1,7 @@
 package com.crimsonwarpedcraft.uhc.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.crimsonwarpedcraft.uhc.mock.MockItemStack;
@@ -10,6 +11,8 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Scoreboard;
 import org.junit.jupiter.api.Test;
 
@@ -188,5 +191,19 @@ class UhcPlayerTest {
             .getUhcUser(player)
             .getUuid()
     );
+  }
+
+  @Test
+  void removeEffects() {
+    MockPlayer player = new MockPlayer();
+    PotionEffect effect = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 0, 0);
+    player.addPotionEffect(effect);
+
+    UhcUserStore
+        .getInstance()
+        .getUhcUser(player)
+        .removeEffects();
+
+    assertFalse(player.getActivePotionEffects().contains(effect));
   }
 }
