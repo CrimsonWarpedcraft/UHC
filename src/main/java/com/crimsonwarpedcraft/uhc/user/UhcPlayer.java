@@ -1,12 +1,14 @@
 package com.crimsonwarpedcraft.uhc.user;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.UUID;
 import net.kyori.adventure.text.Component;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.scoreboard.Scoreboard;
 
 /**
@@ -73,6 +75,18 @@ public class UhcPlayer extends UhcUser {
   /** Resets the player's inventory. */
   public UhcPlayer resetInventory() {
     player.getInventory().clear();
+
+    return this;
+  }
+
+  /** Removes any effects on a player. */
+  public UhcPlayer removeEffects() {
+    Collection<PotionEffect> activeEffects = player.getActivePotionEffects();
+
+    // Loops over all effects and removes them
+    for (PotionEffect effect : activeEffects) {
+      player.removePotionEffect(effect.getType());
+    }
 
     return this;
   }

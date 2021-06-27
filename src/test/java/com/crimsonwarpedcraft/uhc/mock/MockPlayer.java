@@ -96,6 +96,7 @@ public class MockPlayer implements Player {
   private final AttributeInstance maxHealthAttribute;
   private final Map<String, Boolean> permissions = new HashMap<>();
   private final PlayerInventory inventory = new MockPlayerInventory();
+  private final HashMap<PotionEffectType, PotionEffect> activeEffects = new HashMap<>();
   private final UUID uuid = UUID.randomUUID();
   private Component lastMessage;
   private double health;
@@ -1960,7 +1961,9 @@ public class MockPlayer implements Player {
 
   @Override
   public boolean addPotionEffect(@NotNull PotionEffect effect) {
-    return false;
+    activeEffects.put(effect.getType(), effect);
+
+    return true;
   }
 
   @Override
@@ -1985,12 +1988,12 @@ public class MockPlayer implements Player {
 
   @Override
   public void removePotionEffect(@NotNull PotionEffectType type) {
-
+    activeEffects.remove(type);
   }
 
   @Override
   public @NotNull Collection<PotionEffect> getActivePotionEffects() {
-    return null;
+    return activeEffects.values();
   }
 
   @Override

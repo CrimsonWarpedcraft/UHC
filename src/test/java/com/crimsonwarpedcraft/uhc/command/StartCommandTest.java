@@ -2,6 +2,7 @@ package com.crimsonwarpedcraft.uhc.command;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,6 +22,8 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -43,6 +46,8 @@ class StartCommandTest {
     player1.setFoodLevel(5);
     player1.setGameMode(GameMode.ADVENTURE);
     player1.getInventory().addItem(new MockItemStack(Material.ACACIA_BOAT));
+    PotionEffect effect = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 0, 0);
+    player1.addPotionEffect(effect);
     MockPlayer player2 = new MockPlayer();
 
     MockServer server = new MockServer();
@@ -114,6 +119,9 @@ class StartCommandTest {
 
     // Make sure players' inventories were reset
     assertEquals(0, player1.getInventory().getSize());
+
+    // Make sure players' effects were reset
+    assertFalse(player1.getActivePotionEffects().contains(effect));
 
     // Make sure that the world border was set
     assertEquals(config.getBorderStartSize(), world.getWorldBorder().getSize());

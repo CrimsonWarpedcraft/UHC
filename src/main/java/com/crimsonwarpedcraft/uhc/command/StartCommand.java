@@ -76,6 +76,7 @@ public class StartCommand extends BaseCommand {
             .resetExhaustion()
             .resetExp()
             .resetInventory()
+            .removeEffects()
             .setGameMode(GameMode.SURVIVAL)
             .sendMessage(
                 text("Game Has BEGUN!!", NamedTextColor.GREEN)
