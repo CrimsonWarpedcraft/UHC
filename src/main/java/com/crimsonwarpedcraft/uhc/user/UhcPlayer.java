@@ -83,12 +83,6 @@ public class UhcPlayer extends UhcUser {
   public UhcPlayer removeEffects() {
     Collection<PotionEffect> activeEffects = player.getActivePotionEffects();
 
-    //Checks if player has any effects
-    if (activeEffects.size() == 0) {
-
-      return this;
-    }
-
     // Loops over all effects and removes them
     for (PotionEffect effect : activeEffects) {
       player.removePotionEffect(effect.getType());
