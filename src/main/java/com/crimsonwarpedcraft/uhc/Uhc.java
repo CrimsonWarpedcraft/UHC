@@ -1,6 +1,7 @@
 package com.crimsonwarpedcraft.uhc;
 
 import com.crimsonwarpedcraft.cwcommons.command.PaperCommandRegister;
+import com.crimsonwarpedcraft.cwcommons.listener.BukkitListenerRegister;
 import com.crimsonwarpedcraft.uhc.command.StartCommand;
 import com.crimsonwarpedcraft.uhc.game.GameConfig;
 import com.crimsonwarpedcraft.uhc.game.GameState;
@@ -8,7 +9,6 @@ import com.crimsonwarpedcraft.uhc.game.RecipeManager;
 import com.crimsonwarpedcraft.uhc.listener.BorderShrinker;
 import com.crimsonwarpedcraft.uhc.listener.EndDisabler;
 import com.crimsonwarpedcraft.uhc.listener.JoinPreventer;
-import com.crimsonwarpedcraft.uhc.listener.ListenerRegister;
 import com.crimsonwarpedcraft.uhc.listener.RegenPreventer;
 import com.crimsonwarpedcraft.uhc.listener.ResurrectPreventer;
 import com.crimsonwarpedcraft.uhc.listener.ScoreboardCreator;
@@ -77,8 +77,8 @@ public class Uhc extends JavaPlugin {
         );
 
     // Used for registering event listeners with
-    ListenerRegister
-        .getListenerRegister(this)
+    BukkitListenerRegister
+        .getNewBukkitListenerRegister(this)
         // Register event listeners
         .registerListener(BorderShrinker.getBorderShrinker(gameState, gameConfig))
         .registerListener(EndDisabler.getEndDisabler())
