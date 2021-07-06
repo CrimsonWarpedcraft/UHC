@@ -1,6 +1,6 @@
 package com.crimsonwarpedcraft.uhc;
 
-import com.crimsonwarpedcraft.uhc.command.CommandRegister;
+import com.crimsonwarpedcraft.cwcommons.command.PaperCommandRegister;
 import com.crimsonwarpedcraft.uhc.command.StartCommand;
 import com.crimsonwarpedcraft.uhc.game.GameConfig;
 import com.crimsonwarpedcraft.uhc.game.GameState;
@@ -70,8 +70,8 @@ public class Uhc extends JavaPlugin {
         )
         .apply();
 
-    CommandRegister
-        .newCommandRegister(this)
+    PaperCommandRegister
+        .getNewPaperCommandRegister(this)
         .register(
             StartCommand.getStartCommand(gameState, gameConfig)
         );

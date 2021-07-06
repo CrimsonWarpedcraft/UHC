@@ -45,44 +45,16 @@ java {
 }
 
 repositories {
-    mavenCentral {
-        content {
-            excludeModule("com.destroystokyo.paper", "paper-api")
-            excludeModule("io.papermc", "paperlib")
-            excludeModule("co.aikar", "acf-paper")
-        }
-    }
-
     maven {
-        name 'papermc'
-        url 'https://papermc.io/repo/repository/maven-public/'
-        content {
-            excludeModule("com.github.spotbugs", "spotbugs-annotations")
-            excludeModule("com.h3xstream.findsecbugs", "findsecbugs-plugin")
-            excludeModule("org.junit.jupiter", "junit-jupiter-api")
-            excludeModule("org.junit.jupiter", "junit-jupiter-engine")
-            excludeModule("co.aikar", "acf-paper")
-        }
-    }
-
-    maven {
-        url 'https://repo.aikar.co/content/groups/aikar/'
-        content {
-            excludeModule("com.github.spotbugs", "spotbugs-annotations")
-            excludeModule("com.h3xstream.findsecbugs", "findsecbugs-plugin")
-            excludeModule("org.junit.jupiter", "junit-jupiter-api")
-            excludeModule("org.junit.jupiter", "junit-jupiter-engine")
-            excludeModule("com.destroystokyo.paper", "paper-api")
-            excludeModule("io.papermc", "paperlib")
-        }
+        url 'https://mvn.snowypeaksystems.com/repository/maven-public/'
     }
 }
 
 dependencies {
     compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
     compileOnly 'com.github.spotbugs:spotbugs-annotations:4.2.3'
-    implementation "co.aikar:acf-paper:0.5.0-SNAPSHOT"
     implementation 'io.papermc:paperlib:1.0.6'
+    implementation 'com.crimsonwarpedcraft.cwcommons:CwCommons:0.1.0-SNAPSHOT'
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
     testCompileOnly 'com.github.spotbugs:spotbugs-annotations:3.1.2'
     testImplementation 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
@@ -129,6 +101,7 @@ spotbugsTest {
 shadowJar {
     archiveClassifier.set('')
     relocate 'io.papermc.lib', 'shadow.io.papermc.paperlib'
+    relocate 'com.crimsonwarpedcraft.cwcommons', 'shadow.com.crimsonwarpedcraft.cwcommons'
     minimize()
 }
 
