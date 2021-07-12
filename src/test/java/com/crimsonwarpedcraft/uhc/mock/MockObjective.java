@@ -18,7 +18,11 @@ import org.jetbrains.annotations.Nullable;
  *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-@SuppressFBWarnings("NP_NONNULL_RETURN_VIOLATION")
+@SuppressFBWarnings({
+    "NP_NONNULL_RETURN_VIOLATION",
+    "EI_EXPOSE_REP",
+    "EI_EXPOSE_REP2"
+})
 public class MockObjective implements Objective {
   private final String name;
   private final String criteria;
