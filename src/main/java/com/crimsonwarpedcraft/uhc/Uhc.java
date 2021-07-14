@@ -1,6 +1,7 @@
 package com.crimsonwarpedcraft.uhc;
 
 import com.crimsonwarpedcraft.cwcommons.command.PaperCommandRegister;
+import com.crimsonwarpedcraft.cwcommons.config.ConfigurationException;
 import com.crimsonwarpedcraft.cwcommons.listener.BukkitListenerRegister;
 import com.crimsonwarpedcraft.uhc.command.StartCommand;
 import com.crimsonwarpedcraft.uhc.game.GameConfig;
@@ -19,7 +20,6 @@ import com.crimsonwarpedcraft.uhc.util.UhcLogger;
 import com.crimsonwarpedcraft.uhc.util.UhcLoggerFactory;
 import io.papermc.lib.PaperLib;
 import java.io.File;
-import java.io.IOException;
 import java.util.logging.Logger;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ComplexRecipe;
@@ -42,22 +42,22 @@ public class Uhc extends JavaPlugin {
     // Reset factory now that we can use our logger
     resetFactory(getLogger());
 
-    GameConfig gameConfig = GameConfig.getNewGameConfig(getConfig());
-    GameState gameState = GameState.newGameState(getServer());
-
-    // Try to overwrite config file
-    // This lets us update the config file with default
-    // values if we ever add more config options
+    // Try to load the config file
+    GameConfig gameConfig;
     try {
-      gameConfig.save(
+      gameConfig = GameConfig.getNewGameConfig(
           new File(getDataFolder(), "config.yml")
       );
-    } catch (IOException e) {
+    } catch (ConfigurationException e) {
       LOGGER.log(
-          UhcLogger.Level.WARN,
-          "Error writing config file, your config may be out of date!"
+          UhcLogger.Level.SEVERE,
+          "Error loading config file, please correct it before continuing!"
       );
+      setEnabled(false);
+      return;
     }
+
+    GameState gameState = GameState.newGameState(getServer());
 
     RecipeManager
         .getNewRecipeManager(getServer())

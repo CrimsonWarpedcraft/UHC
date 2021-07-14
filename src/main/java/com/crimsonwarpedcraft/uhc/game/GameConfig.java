@@ -1,39 +1,37 @@
 package com.crimsonwarpedcraft.uhc.game;
 
+import com.crimsonwarpedcraft.cwcommons.config.ConfigFile;
+import com.crimsonwarpedcraft.cwcommons.config.ConfigOption;
+import com.crimsonwarpedcraft.cwcommons.config.ConfigurationException;
 import java.io.File;
-import java.io.IOException;
+import java.util.HashSet;
 import java.util.Objects;
-import org.bukkit.configuration.Configuration;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
+import java.util.Set;
 
 /**
  * Represents the configuration for a UHC game.
  *
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
-public class GameConfig {
+public class GameConfig extends ConfigFile {
   private static final String WORLD_MAIN_WORLD_NAME = "world.main-world-name";
   private static final String WORLD_BORDER_START_SIZE = "world.border-start-size";
   private static final String WORLD_BORDER_SHRINK_RATE = "world.border-shrink-blocks-per-sec";
   private static final String WORLD_BORDER_FINAL_SIZE = "world.border-final-size";
-  private final FileConfiguration config;
 
   /**
    * Returns a new GameConfig instance.
    *
-   * @param config the config loaded from a file
+   * @param config the config file
    * @return a new GameConfig instance
+   * @throws ConfigurationException if there is an error loading and updating the config
    */
-  public static GameConfig getNewGameConfig(FileConfiguration config) {
-    return new GameConfig(Objects.requireNonNull(config));
+  public static GameConfig getNewGameConfig(File config) throws ConfigurationException {
+    return new GameConfig(config);
   }
 
-  private GameConfig(FileConfiguration config) {
-    this.config = config;
-
-    config.options().copyDefaults(true);
-    loadDefaults();
+  protected GameConfig(File config) throws ConfigurationException {
+    super(Objects.requireNonNull(config));
   }
 
   /** Returns the name of the server's main world. */
@@ -56,28 +54,56 @@ public class GameConfig {
     return config.getDouble(WORLD_BORDER_FINAL_SIZE);
   }
 
-  /**
-   * Saves the config to a file.
-   *
-   * @param file the file to save to
-   * @return this instance for method chaining
-   * @throws IOException if an error occurs while writing the file
-   */
-  public GameConfig save(File file) throws IOException {
-    config.save(Objects.requireNonNull(file));
+  @Override
+  protected Set<ConfigOption> getDefaults() {
+    Set<ConfigOption> options = new HashSet<>();
+    options.add(
+        ConfigOption.getNewConfigOption(
+            WORLD_MAIN_WORLD_NAME,
+            "world",
+            value -> value instanceof String
+        )
+    );
+    options.add(
+        ConfigOption.getNewConfigOption(
+            WORLD_BORDER_START_SIZE,
+            1000D,
+            value -> {
+              try {
+                return Double.parseDouble(value.toString()) > 0;
+              } catch (NumberFormatException e) {
+                return false;
+              }
+            }
+        )
+    );
+    options.add(
+        ConfigOption.getNewConfigOption(
+            WORLD_BORDER_SHRINK_RATE,
+            .3D,
+            value -> {
+              try {
+                return Double.parseDouble(value.toString()) > 0;
+              } catch (NumberFormatException e) {
+                return false;
+              }
+            }
+        )
+    );
+    options.add(
+        ConfigOption.getNewConfigOption(
+            WORLD_BORDER_FINAL_SIZE,
+            500D,
+            value -> {
+              try {
+                return Double.parseDouble(value.toString()) > 0;
+              } catch (NumberFormatException e) {
+                return false;
+              }
+            }
+        )
+    );
 
-    return this;
-  }
-
-  private void loadDefaults() {
-    Configuration defaults = new YamlConfiguration();
-
-    // World settings
-    defaults.set(WORLD_MAIN_WORLD_NAME, "world");
-    defaults.set(WORLD_BORDER_START_SIZE, 1000D);
-    defaults.set(WORLD_BORDER_SHRINK_RATE, .3);
-    defaults.set(WORLD_BORDER_FINAL_SIZE, 500D);
-
-    config.setDefaults(defaults);
+    return options;
   }
 }

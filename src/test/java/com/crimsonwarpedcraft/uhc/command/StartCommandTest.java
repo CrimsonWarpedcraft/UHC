@@ -1,12 +1,12 @@
 package com.crimsonwarpedcraft.uhc.command;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.crimsonwarpedcraft.cwcommons.config.ConfigurationException;
 import com.crimsonwarpedcraft.uhc.game.GameConfig;
 import com.crimsonwarpedcraft.uhc.game.GameState;
 import com.crimsonwarpedcraft.uhc.mock.MockItemStack;
@@ -20,8 +20,6 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.junit.jupiter.api.Test;
@@ -34,7 +32,7 @@ import org.junit.jupiter.api.Test;
 class StartCommandTest {
 
   @Test
-  void onStart() throws InterruptedException {
+  void onStart() throws ConfigurationException {
     MockPlayer player1 = new MockPlayer();
     player1.setHealth(10);
     AttributeInstance attribute = player1.getAttribute(Attribute.GENERIC_MAX_HEALTH);
@@ -61,15 +59,10 @@ class StartCommandTest {
     world.setFullTime(1000);
     server.loadWorld(world);
 
-    FileConfiguration configFile = new YamlConfiguration();
-    assertDoesNotThrow(
-        () -> configFile.load(
-            Paths.get("src", "test", "resources", "config.yml").toFile()
-        )
-    );
-
     GameState game = GameState.newGameState(server);
-    GameConfig config = GameConfig.getNewGameConfig(configFile);
+    GameConfig config = GameConfig.getNewGameConfig(
+        Paths.get("src", "test", "resources", "config.yml").toFile()
+    );
     StartCommand start = StartCommand.getStartCommand(
         game,
         config

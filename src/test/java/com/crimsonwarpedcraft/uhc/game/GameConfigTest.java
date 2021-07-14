@@ -3,12 +3,12 @@ package com.crimsonwarpedcraft.uhc.game;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
+import com.crimsonwarpedcraft.cwcommons.config.ConfigurationException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
-import java.nio.file.Paths;
+import java.io.IOException;
+import java.nio.file.Files;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.junit.jupiter.api.Test;
 
@@ -30,9 +30,13 @@ class GameConfigTest {
   }
 
   @Test
-  void getMainWorldName() {
-    YamlConfiguration fileConfig = new YamlConfiguration();
-    GameConfig config = GameConfig.getNewGameConfig(fileConfig);
+  void getMainWorldName() throws IOException, ConfigurationException {
+    File configFile = Files.createTempFile(
+        String.valueOf(System.currentTimeMillis()),
+        "config.yml"
+    )
+        .toFile();
+    GameConfig config = GameConfig.getNewGameConfig(configFile);
 
     // Make sure we get the expected default value
     assertEquals(
@@ -40,49 +44,79 @@ class GameConfigTest {
         config.getMainWorldName()
     );
 
-    // Load config from file
+    // Check that saved values are loaded properly
+    YamlConfiguration savedConfig = new YamlConfiguration();
     assertDoesNotThrow(
-        () -> fileConfig.load(
-            Paths.get("src", "test", "resources", "config.yml").toFile()
-        )
+        () -> savedConfig.load(configFile)
     );
-
-    // Make sure we get the expected loaded value
+    savedConfig.set("world.main-world-name", "world1");
+    savedConfig.save(configFile);
+    config = GameConfig.getNewGameConfig(configFile);
     assertEquals(
         "world1",
         config.getMainWorldName()
     );
+
+    // Check that invalid values throw an error
+    savedConfig.set("world.main-world-name", 1);
+    savedConfig.save(configFile);
+    assertThrows(
+        ConfigurationException.class,
+        () -> GameConfig.getNewGameConfig(configFile)
+    );
   }
 
   @Test
-  void getBorderStartSize() {
-    YamlConfiguration fileConfig = new YamlConfiguration();
-    GameConfig config = GameConfig.getNewGameConfig(fileConfig);
+  void getBorderStartSize() throws IOException, ConfigurationException {
+    File configFile = Files.createTempFile(
+        String.valueOf(System.currentTimeMillis()),
+        "config.yml"
+    )
+        .toFile();
+    GameConfig config = GameConfig.getNewGameConfig(configFile);
 
     // Make sure we get the expected default value
     assertEquals(
-        1000,
+        1000D,
         config.getBorderStartSize()
     );
 
-    // Load config from file
+    // Check that saved values are loaded properly
+    YamlConfiguration savedConfig = new YamlConfiguration();
     assertDoesNotThrow(
-        () -> fileConfig.load(
-            Paths.get("src", "test", "resources", "config.yml").toFile()
-        )
+        () -> savedConfig.load(configFile)
+    );
+    savedConfig.set("world.border-start-size", 5D);
+    savedConfig.save(configFile);
+    config = GameConfig.getNewGameConfig(configFile);
+    assertEquals(
+        5D,
+        config.getBorderStartSize()
     );
 
-    // Make sure we get the expected loaded value
-    assertEquals(
-        100,
-        config.getBorderStartSize()
+    // Check that invalid values throw an error
+    savedConfig.set("world.border-start-size", -1D);
+    savedConfig.save(configFile);
+    assertThrows(
+        ConfigurationException.class,
+        () -> GameConfig.getNewGameConfig(configFile)
+    );
+    savedConfig.set("world.border-start-size", "test");
+    savedConfig.save(configFile);
+    assertThrows(
+        ConfigurationException.class,
+        () -> GameConfig.getNewGameConfig(configFile)
     );
   }
 
   @Test
-  void getBorderShrinkRate() {
-    YamlConfiguration fileConfig = new YamlConfiguration();
-    GameConfig config = GameConfig.getNewGameConfig(fileConfig);
+  void getBorderShrinkRate() throws IOException, ConfigurationException {
+    File configFile = Files.createTempFile(
+        String.valueOf(System.currentTimeMillis()),
+        "config.yml"
+    )
+        .toFile();
+    GameConfig config = GameConfig.getNewGameConfig(configFile);
 
     // Make sure we get the expected default value
     assertEquals(
@@ -90,91 +124,74 @@ class GameConfigTest {
         config.getBorderShrinkRate()
     );
 
-    // Load config from file
+    // Check that saved values are loaded properly
+    YamlConfiguration savedConfig = new YamlConfiguration();
     assertDoesNotThrow(
-        () -> fileConfig.load(
-            Paths.get("src", "test", "resources", "config.yml").toFile()
-        )
+        () -> savedConfig.load(configFile)
+    );
+    savedConfig.set("world.border-shrink-blocks-per-sec", 5D);
+    savedConfig.save(configFile);
+    config = GameConfig.getNewGameConfig(configFile);
+    assertEquals(
+        5D,
+        config.getBorderShrinkRate()
     );
 
-    // Make sure we get the expected loaded value
-    assertEquals(
-        1,
-        config.getBorderShrinkRate()
+    // Check that invalid values throw an error
+    savedConfig.set("world.border-shrink-blocks-per-sec", -1D);
+    savedConfig.save(configFile);
+    assertThrows(
+        ConfigurationException.class,
+        () -> GameConfig.getNewGameConfig(configFile)
+    );
+    savedConfig.set("world.border-shrink-blocks-per-sec", "test");
+    savedConfig.save(configFile);
+    assertThrows(
+        ConfigurationException.class,
+        () -> GameConfig.getNewGameConfig(configFile)
     );
   }
 
   @Test
-  void getBorderFinalSize() {
-    YamlConfiguration fileConfig = new YamlConfiguration();
-    GameConfig config = GameConfig.getNewGameConfig(fileConfig);
+  void getBorderFinalSize() throws IOException, ConfigurationException {
+    File configFile = Files.createTempFile(
+        String.valueOf(System.currentTimeMillis()),
+        "config.yml"
+    )
+        .toFile();
+    GameConfig config = GameConfig.getNewGameConfig(configFile);
 
     // Make sure we get the expected default value
     assertEquals(
-        500,
+        500D,
         config.getBorderFinalSize()
     );
 
-    // Load config from file
+    // Check that saved values are loaded properly
+    YamlConfiguration savedConfig = new YamlConfiguration();
     assertDoesNotThrow(
-        () -> fileConfig.load(
-            Paths.get("src", "test", "resources", "config.yml").toFile()
-        )
+        () -> savedConfig.load(configFile)
     );
-
-    // Make sure we get the expected loaded value
+    savedConfig.set("world.border-final-size", 1D);
+    savedConfig.save(configFile);
+    config = GameConfig.getNewGameConfig(configFile);
     assertEquals(
-        50,
+        1D,
         config.getBorderFinalSize()
     );
-  }
 
-  @Test
-  void save() {
-    YamlConfiguration fileConfig = new YamlConfiguration();
-    fileConfig.set("test.val1", 5);
-    GameConfig config = GameConfig.getNewGameConfig(fileConfig);
-
-    // Check NPE
+    // Check that invalid values throw an error
+    savedConfig.set("world.border-final-size", -1D);
+    savedConfig.save(configFile);
     assertThrows(
-        NullPointerException.class,
-        () -> config.save(null)
+        ConfigurationException.class,
+        () -> GameConfig.getNewGameConfig(configFile)
     );
-
-    File saveFile = Paths.get(
-            System.getProperty("java.io.tmpdir"),
-            System.currentTimeMillis() + this.getClass().getName()
-    )
-        .toFile();
-
-    // Loop until we get a unique file name
-    while (saveFile.exists()) {
-      // Pause for 5ms at a time
-      try {
-        Thread.sleep(5);
-      } catch (InterruptedException e) {
-        fail();
-      }
-
-      saveFile = Paths.get(
-          System.getProperty("java.io.tmpdir"),
-          System.currentTimeMillis() + this.getClass().getName()
-      )
-          .toFile();
-    }
-
-    saveFile.deleteOnExit();
-
-    // Check if writing file works
-    File finalSaveFile = saveFile;
-    assertDoesNotThrow(
-        () -> config.save(finalSaveFile)
+    savedConfig.set("world.border-final-size", "test");
+    savedConfig.save(configFile);
+    assertThrows(
+        ConfigurationException.class,
+        () -> GameConfig.getNewGameConfig(configFile)
     );
-    assertTrue(finalSaveFile.exists());
-
-    // Check if we can load the config from the file
-    YamlConfiguration newFileConfig = new YamlConfiguration();
-    assertDoesNotThrow(() -> newFileConfig.load(finalSaveFile));
-    assertEquals(5, newFileConfig.getInt("test.val1"));
   }
 }

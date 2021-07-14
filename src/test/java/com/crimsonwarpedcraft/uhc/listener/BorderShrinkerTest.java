@@ -1,10 +1,10 @@
 package com.crimsonwarpedcraft.uhc.listener;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.crimsonwarpedcraft.cwcommons.config.ConfigurationException;
 import com.crimsonwarpedcraft.uhc.event.UhcPlayerDeathEvent;
 import com.crimsonwarpedcraft.uhc.game.GameConfig;
 import com.crimsonwarpedcraft.uhc.game.GameState;
@@ -13,9 +13,8 @@ import com.crimsonwarpedcraft.uhc.mock.MockServer;
 import com.crimsonwarpedcraft.uhc.mock.MockWorld;
 import com.crimsonwarpedcraft.uhc.mock.MockWorldBorder;
 import com.crimsonwarpedcraft.uhc.user.UhcUserStore;
+import java.nio.file.Files;
 import java.nio.file.Paths;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -34,7 +33,12 @@ class BorderShrinkerTest {
             .getBorderShrinker(
                 null,
                 GameConfig.getNewGameConfig(
-                    new YamlConfiguration()
+                    Files
+                        .createTempFile(
+                            String.valueOf(System.currentTimeMillis()),
+                            "config.json"
+                        )
+                        .toFile()
                 )
             )
     );
@@ -49,7 +53,7 @@ class BorderShrinkerTest {
   }
 
   @Test
-  void onUhcPlayerDeath() {
+  void onUhcPlayerDeath() throws ConfigurationException {
     MockPlayer player1 = new MockPlayer();
     MockPlayer player2 = new MockPlayer();
     MockWorld world = new MockWorld();
@@ -62,13 +66,9 @@ class BorderShrinkerTest {
         .newGameState(server)
         .setRunning(true);
 
-    FileConfiguration configFile = new YamlConfiguration();
-    assertDoesNotThrow(
-        () -> configFile.load(
-            Paths.get("src", "test", "resources", "config.yml").toFile()
-        )
+    GameConfig config = GameConfig.getNewGameConfig(
+        Paths.get("src", "test", "resources", "config.yml").toFile()
     );
-    GameConfig config = GameConfig.getNewGameConfig(configFile);
     BorderShrinker shrinker = BorderShrinker.getBorderShrinker(game, config);
 
     UhcPlayerDeathEvent event = UhcPlayerDeathEvent
