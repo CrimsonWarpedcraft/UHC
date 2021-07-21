@@ -1,11 +1,12 @@
 package com.crimsonwarpedcraft.uhc.game;
 
-import com.crimsonwarpedcraft.uhc.Uhc;
-import com.crimsonwarpedcraft.uhc.util.UhcLogger;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.inventory.Recipe;
 
@@ -15,7 +16,7 @@ import org.bukkit.inventory.Recipe;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class RecipeManager {
-  private static final UhcLogger LOGGER = Uhc.getUhcLogger();
+  private static final Logger LOGGER = Bukkit.getLogger();
   private final List<Recipe> recipes;
   private final Server server;
   private int added;
@@ -67,6 +68,6 @@ public class RecipeManager {
     server.clearRecipes();
     recipes.forEach(server::addRecipe);
 
-    LOGGER.log(UhcLogger.Level.INFO, "Added  " + added + ", removed " + removed + " recipe(s)");
+    LOGGER.log(Level.INFO, "Added  " + added + ", removed " + removed + " recipe(s)");
   }
 }

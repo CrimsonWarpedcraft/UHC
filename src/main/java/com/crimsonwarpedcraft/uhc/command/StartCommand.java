@@ -7,16 +7,17 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
-import com.crimsonwarpedcraft.uhc.Uhc;
 import com.crimsonwarpedcraft.uhc.game.GameConfig;
 import com.crimsonwarpedcraft.uhc.game.GameState;
 import com.crimsonwarpedcraft.uhc.game.WorldConfig;
 import com.crimsonwarpedcraft.uhc.user.GameMode;
 import com.crimsonwarpedcraft.uhc.user.UhcUserStore;
-import com.crimsonwarpedcraft.uhc.util.UhcLogger;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -28,7 +29,7 @@ import org.bukkit.entity.Player;
  */
 @CommandAlias("uhc")
 public class StartCommand extends BaseCommand {
-  private static final UhcLogger LOGGER = Uhc.getUhcLogger();
+  private static final Logger LOGGER = Bukkit.getLogger();
   private final GameState game;
   private final GameConfig config;
 
@@ -83,7 +84,7 @@ public class StartCommand extends BaseCommand {
             );
       }
 
-      LOGGER.log(UhcLogger.Level.INFO, "Game has started");
+      LOGGER.log(Level.INFO, "Game has started");
     // If game is already running, sends an error message
     } else {
       UhcUserStore

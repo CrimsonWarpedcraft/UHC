@@ -16,11 +16,11 @@ import com.crimsonwarpedcraft.uhc.listener.ScoreboardCreator;
 import com.crimsonwarpedcraft.uhc.listener.TradeDisabler;
 import com.crimsonwarpedcraft.uhc.listener.UhcUserStoreGarbageCollector;
 import com.crimsonwarpedcraft.uhc.listener.VillagerGuardian;
-import com.crimsonwarpedcraft.uhc.util.UhcLogger;
-import com.crimsonwarpedcraft.uhc.util.UhcLoggerFactory;
 import io.papermc.lib.PaperLib;
 import java.io.File;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ComplexRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,16 +31,11 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class Uhc extends JavaPlugin {
-  // We only assign these here to prevent null issues in testing, we reassign them later
-  private static UhcLoggerFactory factory = UhcLoggerFactory.getNewUhcLoggerFactory(null);
-  private static UhcLogger LOGGER = factory.getNewUhcLogger();
+  private static final Logger LOGGER = Bukkit.getLogger();
 
   @Override
   public void onEnable() {
     PaperLib.suggestPaper(this);
-
-    // Reset factory now that we can use our logger
-    resetFactory(getLogger());
 
     // Try to load the config file
     GameConfig gameConfig;
@@ -50,7 +45,7 @@ public class Uhc extends JavaPlugin {
       );
     } catch (ConfigurationException e) {
       LOGGER.log(
-          UhcLogger.Level.SEVERE,
+          Level.SEVERE,
           "Error loading config file, please correct it before continuing!"
       );
       setEnabled(false);
@@ -90,16 +85,6 @@ public class Uhc extends JavaPlugin {
         .registerListener(UhcUserStoreGarbageCollector.getUhcUserStoreGarbageCollector())
         .registerListener(VillagerGuardian.getVillagerGuardian());
 
-    LOGGER.log(UhcLogger.Level.INFO, "Successfully enabled UHC!");
-  }
-
-  private static void resetFactory(Logger logger) {
-    factory = UhcLoggerFactory.getNewUhcLoggerFactory(logger);
-    LOGGER = factory.getNewUhcLogger();
-  }
-
-  /** Returns a UhcLogger instance that uses this plugin's logging system. */
-  public static UhcLogger getUhcLogger() {
-    return factory.getNewUhcLogger();
+    LOGGER.log(Level.INFO, "Successfully enabled UHC!");
   }
 }

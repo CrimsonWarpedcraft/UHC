@@ -6,8 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.crimsonwarpedcraft.uhc.game.GameState;
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
 import com.crimsonwarpedcraft.uhc.mock.MockServer;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.net.InetAddress;
+import org.bukkit.Bukkit;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -16,6 +19,14 @@ import org.junit.jupiter.api.Test;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 class JoinPreventerTest {
+
+  @BeforeAll
+  @SuppressFBWarnings("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE")
+  static void setUp() {
+    if (Bukkit.getServer() == null) {
+      Bukkit.setServer(new MockServer());
+    }
+  }
 
   @Test
   void getJoinPreventer() {

@@ -13,8 +13,10 @@ import com.crimsonwarpedcraft.uhc.mock.MockItemStack;
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
 import com.crimsonwarpedcraft.uhc.mock.MockServer;
 import com.crimsonwarpedcraft.uhc.mock.MockWorld;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.nio.file.Paths;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -22,6 +24,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -30,6 +33,14 @@ import org.junit.jupiter.api.Test;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 class StartCommandTest {
+
+  @BeforeAll
+  @SuppressFBWarnings("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE")
+  static void setUp() {
+    if (Bukkit.getServer() == null) {
+      Bukkit.setServer(new MockServer());
+    }
+  }
 
   @Test
   void onStart() throws ConfigurationException {

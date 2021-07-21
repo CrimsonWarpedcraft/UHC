@@ -5,7 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.crimsonwarpedcraft.uhc.mock.MockLivingEntity;
 import com.crimsonwarpedcraft.uhc.mock.MockPlayer;
+import com.crimsonwarpedcraft.uhc.mock.MockServer;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.bukkit.Bukkit;
 import org.bukkit.event.entity.EntityResurrectEvent;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -14,6 +18,14 @@ import org.junit.jupiter.api.Test;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 class ResurrectPreventerTest {
+
+  @BeforeAll
+  @SuppressFBWarnings("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE")
+  static void setUp() {
+    if (Bukkit.getServer() == null) {
+      Bukkit.setServer(new MockServer());
+    }
+  }
 
   @Test
   void onEntityResurrectEvent() {

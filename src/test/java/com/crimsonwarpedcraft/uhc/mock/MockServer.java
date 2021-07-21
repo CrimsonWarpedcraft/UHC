@@ -342,7 +342,7 @@ public class MockServer implements Server {
 
   @Override
   public @NotNull Logger getLogger() {
-    return null;
+    return Logger.getLogger(this.getClass().getName());
   }
 
   @Override

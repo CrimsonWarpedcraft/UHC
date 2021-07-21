@@ -1,7 +1,8 @@
 package com.crimsonwarpedcraft.uhc.listener;
 
-import com.crimsonwarpedcraft.uhc.Uhc;
-import com.crimsonwarpedcraft.uhc.util.UhcLogger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,7 +14,7 @@ import org.bukkit.event.entity.EntityResurrectEvent;
  * @author Copyright (c) Levi Muniz. All Rights Reserved.
  */
 public class ResurrectPreventer implements Listener {
-  private static final UhcLogger LOGGER = Uhc.getUhcLogger();
+  private static final Logger LOGGER = Bukkit.getLogger();
 
   /** Returns a new instance of a ResurrectPreventer. */
   public static ResurrectPreventer getResurrectPreventer() {
@@ -30,7 +31,7 @@ public class ResurrectPreventer implements Listener {
       event.setCancelled(true);
 
       LOGGER.log(
-          UhcLogger.Level.INFO,
+          Level.INFO,
           "Prevented " + event.getEntity().getName() + " from resurrecting"
       );
     }
