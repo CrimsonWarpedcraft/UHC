@@ -36,22 +36,22 @@ public class GameConfig extends ConfigFile {
 
   /** Returns the name of the server's main world. */
   public String getMainWorldName() {
-    return config.getString(WORLD_MAIN_WORLD_NAME);
+    return getConfig().getString(WORLD_MAIN_WORLD_NAME);
   }
 
   /** Returns the size that the world border should start at. */
   public double getBorderStartSize() {
-    return config.getDouble(WORLD_BORDER_START_SIZE);
+    return getConfig().getDouble(WORLD_BORDER_START_SIZE);
   }
 
   /** Returns the rate (in blocks/seconds) at which the border should shrink. */
   public double getBorderShrinkRate() {
-    return config.getDouble(WORLD_BORDER_SHRINK_RATE);
+    return getConfig().getDouble(WORLD_BORDER_SHRINK_RATE);
   }
 
   /** Returns the size that the border should shrink to. */
   public double getBorderFinalSize() {
-    return config.getDouble(WORLD_BORDER_FINAL_SIZE);
+    return getConfig().getDouble(WORLD_BORDER_FINAL_SIZE);
   }
 
   @Override
